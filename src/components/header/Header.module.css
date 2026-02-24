@@ -1,0 +1,13 @@
+
+.header{
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    height: 72px;
+}
+
+.nav{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

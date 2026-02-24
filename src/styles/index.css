@@ -1,0 +1,27 @@
+:root {
+
+	/* 컬러 설정 */
+
+	/* 타이포 설정 */
+
+	/* Font Sizes */
+  	--text-sm: 0.875rem;
+  	--text-base: 1rem;
+  	--text-lg: 1.125rem;
+  	--text-xl: 1.25rem;
+
+  	/* Font Weights */
+  	--font-normal: 400;
+  	--font-bold: 700;
+}	
+
+/* typography.module.css */
+.textSm { font-size: var(--text-sm); }
+.textBase { font-size: var(--text-base); }
+.textLg { font-size: var(--text-lg); }
+.textXl { font-size: var(--text-xl); }
+
+.fontNormal { font-weight: var(--font-normal); }
+.fontBold { font-weight: var(--font-bold); }
+
+.textCenter { text-align: center; }

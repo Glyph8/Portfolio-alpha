@@ -1,0 +1,21 @@
+import Portfolio from "../pages/portfolio/Portfolio";
+import PortfolioDetail from "../pages/portfolio-detail/PortfolioDetail";
+import { createBrowserRouter } from "react-router";
+import PortfolioPost from "../pages/portfolio-post/PortfolioPost";
+import Layout from "./Layout";
+import NotFound from "../NotFound";
+
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout/>,
+        errorElement: <NotFound/>,
+        children: [
+            { index: true, element: <Portfolio /> },
+            { path: "portfolio", element: <Portfolio /> },
+            { path: "portfolio-detail", element: <PortfolioDetail /> },
+            { path: "portfolio-post/:id", element: <PortfolioPost /> },
+            { path: "*", element: <NotFound/> }
+        ]
+    }
+])
