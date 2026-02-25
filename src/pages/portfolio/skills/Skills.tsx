@@ -1,11 +1,18 @@
-import React from 'react'
+import styles from "./Skills.module.css";
 
-interface SkillsProps {
-    id: string;
-}
-
-export default function Skills(props: SkillsProps) {
+export default function Skills() {
   return (
-    <div id={props.id}>Skills</div>
-  )
+    <div className={styles.container}>
+      <h2 className={styles.title}>Skills</h2>
+      <div className={styles.skillsContainer}>
+        <div>
+          <div className={styles.skill}>JavaScript</div>
+          <div className={styles.skill}>React</div>
+          <div className={styles.skill}>TypeScript</div>
+          <div className={styles.skill}>CSS</div>
+          <div className={styles.skill}>HTML</div>
+        </div>
+      </div>
+    </div>
+  );
 }

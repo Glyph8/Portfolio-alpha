@@ -1,27 +1,96 @@
+/* 글로벌 설정: 1rem = 10px */
+html {
+  font-size: 62.5%;
+}
+
 :root {
+  /* ==========================================
+     1. 1차 토큰 (Primitive) - Color Palette
+     ========================================== */
 
-	/* 컬러 설정 */
+  /* 🔵 Navy Scale (Brand Primary) */
+  --color-navy-50: #e8ecf2; /* 아주 연한 네이비 배경 */
+  --color-navy-100: #c2d0e5;
+  --color-navy-500: #4a6b9c; /* 버튼 기본 */
+  --color-navy-700: #2c4870; /* 버튼 호버 */
+  --color-navy-800: #223553; /* User Color */
+  --color-navy-900: #122c4f; /* User Color */
 
-	/* 타이포 설정 */
+  /* 🟡 Cream Scale (Brand Background) */
+  --color-cream-50: #fefdf7; /* 거의 흰색에 가까운 크림 */
+  --color-cream-100: #fbf9e3; /* User Color */
+  --color-cream-200: #f0edc9; /* 크림 배경 위 테두리나 호버용 */
+  --color-white: #ffffff;
 
-	/* Font Sizes */
-  	--text-sm: 0.875rem;
-  	--text-base: 1rem;
-  	--text-lg: 1.125rem;
-  	--text-xl: 1.25rem;
+  /* 🔘 Slate Gray Scale (Neutrals - 텍스트, 테두리, 비활성화) */
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0; /* 연한 테두리 */
+  --color-slate-400: #94a3b8; /* 플레이스홀더, 비활성화 텍스트 */
+  --color-slate-500: #64748b; /* 부가 설명 텍스트 */
+  --color-slate-800: #1e293b; /* 강한 텍스트 */
+  --color-slate-900: #0f172a;
 
-  	/* Font Weights */
-  	--font-normal: 400;
-  	--font-bold: 700;
-}	
+  /* 🎨 변주 및 포인트 컬러 */
+  --color-terracotta: #d97757;
+  --color-deep-teal: #204044;
 
-/* typography.module.css */
-.textSm { font-size: var(--text-sm); }
-.textBase { font-size: var(--text-base); }
-.textLg { font-size: var(--text-lg); }
-.textXl { font-size: var(--text-xl); }
+  /* 🚨 상태 컬러 (에러/성공) */
+  --color-error: #ef4444; /* 유효성 검사 실패 */
+  --color-success: #10b981; /* 폼 제출 성공 등 */
 
-.fontNormal { font-weight: var(--font-normal); }
-.fontBold { font-weight: var(--font-bold); }
+  /* ==========================================
+     2. 2차 토큰 (Semantic) - Light Theme
+     ========================================== */
+  --bg-main: var(--color-cream-100);
+  --bg-surface: var(--color-white); /* 카드, 모달 배경 */
+  --bg-section-alt: var(--color-navy-50);
 
-.textCenter { text-align: center; }
+  /* Text */
+  --text-primary: var(--color-navy-900);
+  --text-secondary: var(--color-slate-500);
+  --text-disabled: var(--color-slate-400);
+
+  /* Border */
+  --border-light: var(--color-cream-200); /* 크림 배경용 테두리 */
+  --border-base: var(--color-slate-200); /* 기본 테두리 */
+
+  /* Action (버튼, 링크 등) */
+  --action-primary: var(--color-navy-900);
+  --action-primary-hover: var(--color-navy-700);
+  --action-disabled-bg: var(--color-slate-100);
+  --action-disabled-text: var(--color-slate-400);
+}
+
+/* ==========================================
+   3. 2차 토큰 (Semantic) - Dark Theme
+   ========================================== */
+[data-theme="dark"] {
+  --bg-main: var(--color-navy-900);
+  --bg-surface: var(--color-navy-800);
+  --bg-section-alt: var(--color-deep-teal);
+
+  /* Text */
+  --text-primary: var(--color-cream-100);
+  --text-secondary: var(--color-slate-400);
+  --text-disabled: var(--color-slate-500);
+
+  /* Border */
+  --border-light: var(--color-navy-800);
+  --border-base: var(--color-navy-700);
+
+  /* Action */
+  --action-primary: var(--color-cream-100);
+  --action-primary-hover: var(--color-white);
+  --action-disabled-bg: var(--color-navy-800);
+  --action-disabled-text: var(--color-slate-500);
+}
+
+/* 기본 타이포그래피 설정 (1rem = 10px 기준) */
+body {
+  font-size: 1.6rem;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}

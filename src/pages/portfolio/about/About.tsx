@@ -1,11 +1,9 @@
 import styles from "./About.module.css";
 
-interface AboutProps {
-    id: string;
-}
-
-export default function About(props: AboutProps) {
+export default function About() {
   return (
-    <div className={styles.container}>{props.id}</div>
-  )
+    <div className={styles.container}>
+      <nav className={styles.sidebar}>sidebar</nav>
+    </div>
+  );
 }

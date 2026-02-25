@@ -1,11 +1,5 @@
-import React from 'react'
+import styles from "./Projects.module.css";
 
-interface ProjectsProps {
-    id: string;
-}
-
-export default function Projects(props: ProjectsProps) {
-  return (
-    <div id={props.id}>Projects</div>
-  )
+export default function Projects() {
+  return <div className={styles.container}>Projects</div>;
 }

@@ -1,11 +1,4 @@
-import React from 'react'
-
-interface TimeLineProps {
-    id: string;
-}
-
-export default function TimeLine(props: TimeLineProps) {
-  return (
-    <div>TimeLine</div>
-  )
+import styles from "./TimeLine.module.css";
+export default function TimeLine() {
+  return <div className={styles.container}>TimeLine</div>;
 }
