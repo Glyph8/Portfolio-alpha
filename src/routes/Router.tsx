@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <Portfolio /> },
             { path: "portfolio", element: <Portfolio /> },
-            { path: "portfolio-detail", element: <PortfolioDetail /> },
+            { path: "portfolio/:id", element: <PortfolioDetail /> },
             { path: "portfolio-post/:id", element: <PortfolioPost /> },
             { path: "*", element: <NotFound/> }
         ]

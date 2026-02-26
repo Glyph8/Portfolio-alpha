@@ -1,9 +1,16 @@
 
 .header{
-    background-color: #f0f0f0;
+    background-color: var(--bg-surface);
     padding: 20px;
     text-align: center;
     height: 72px;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: bold;
+    /* color: var(--text-primary); */
+    color: #fbf9e3;
 }
 
 .nav{

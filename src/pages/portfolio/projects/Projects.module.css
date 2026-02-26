@@ -1,4 +1,47 @@
 .container {
-  height: 700px;
-  background-color: beige;
+  max-width: 104rem;
+  margin: 0 auto;
+  padding: 8rem 2rem;
+  background-color: var(--bg-main);
+}
+
+.title {
+  text-align: center;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3.2rem;
+}
+
+.navList {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center; 
+  flex-wrap: wrap;
+  margin-bottom: 4.8rem;
+}
+
+.navItem {
+  padding: 0.8rem 2.4rem;
+  border-radius: 999rem;
+  cursor: pointer;
+  font-size: 1.6rem; 
+   font-weight: 500;
+   background-color: var(--bg-surface);
+   color: var(--text-secondary);
+   border: 1px solid var(--border-base);
+   transition: all 0.2s ease;
+}
+
+.activeNavItem {
+  background-color: var(--color-terracotta);
+  color: #fff;
+  border-color: var(--primary-main);
+} 
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(46rem, 1fr));
+  gap: 2.4rem;
+  width: 100%;
 }

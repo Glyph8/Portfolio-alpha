@@ -1,6 +1,12 @@
 /* 글로벌 설정: 1rem = 10px */
 html {
   font-size: 62.5%;
+  -ms-overflow-style: none; /* IE 및 Legacy Edge 용 */
+  scrollbar-width: none; /* Firefox 용 */
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 :root {
@@ -32,6 +38,7 @@ html {
 
   /* 🎨 변주 및 포인트 컬러 */
   --color-terracotta: #d97757;
+  --color-terracotta-dark: #c06a4b;
   --color-deep-teal: #204044;
 
   /* 🚨 상태 컬러 (에러/성공) */
@@ -39,32 +46,9 @@ html {
   --color-success: #10b981; /* 폼 제출 성공 등 */
 
   /* ==========================================
-     2. 2차 토큰 (Semantic) - Light Theme
+     2. 2차 토큰 (Semantic) - Dark Theme
      ========================================== */
-  --bg-main: var(--color-cream-100);
-  --bg-surface: var(--color-white); /* 카드, 모달 배경 */
-  --bg-section-alt: var(--color-navy-50);
 
-  /* Text */
-  --text-primary: var(--color-navy-900);
-  --text-secondary: var(--color-slate-500);
-  --text-disabled: var(--color-slate-400);
-
-  /* Border */
-  --border-light: var(--color-cream-200); /* 크림 배경용 테두리 */
-  --border-base: var(--color-slate-200); /* 기본 테두리 */
-
-  /* Action (버튼, 링크 등) */
-  --action-primary: var(--color-navy-900);
-  --action-primary-hover: var(--color-navy-700);
-  --action-disabled-bg: var(--color-slate-100);
-  --action-disabled-text: var(--color-slate-400);
-}
-
-/* ==========================================
-   3. 2차 토큰 (Semantic) - Dark Theme
-   ========================================== */
-[data-theme="dark"] {
   --bg-main: var(--color-navy-900);
   --bg-surface: var(--color-navy-800);
   --bg-section-alt: var(--color-deep-teal);
@@ -85,12 +69,37 @@ html {
   --action-disabled-text: var(--color-slate-500);
 }
 
+/* ==========================================
+   3. 2차 토큰 (Semantic) - Light Theme
+   ========================================== */
+[data-theme="light"] {
+  --bg-main: var(--color-cream-100);
+  --bg-surface: var(--color-white); /* 카드, 모달 배경 */
+  --bg-section-alt: var(--color-navy-50);
+
+  /* Text */
+  --text-primary: var(--color-navy-900);
+  --text-secondary: var(--color-slate-500);
+  --text-disabled: var(--color-slate-400);
+
+  --border-light: var(--color-cream-200); /* 크림 배경용 테두리 */
+  --border-base: var(--color-slate-200); /* 기본 테두리 */
+
+  /* Action (버튼, 링크 등) */
+  --action-primary: var(--color-navy-900);
+  --action-primary-hover: var(--color-navy-700);
+  --action-disabled-bg: var(--color-slate-100);
+  --action-disabled-text: var(--color-slate-400);
+}
+
 /* 기본 타이포그래피 설정 (1rem = 10px 기준) */
 body {
   font-size: 1.6rem;
+  font-family: 'Pretendard', sans-serif;
   background-color: var(--bg-main);
   color: var(--text-primary);
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+  line-height: 1.6;
 }

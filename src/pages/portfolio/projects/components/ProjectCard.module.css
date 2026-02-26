@@ -1,0 +1,162 @@
+.card {
+    position: relative;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-base);
+    border-radius: 1.6rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-0.8rem);
+    box-shadow: 0 1.2rem 2.4rem rgba(18, 44, 79, 0.1);
+}
+
+.imageWrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+    transform: scale(1.05);
+}
+
+.content {
+    padding: 2.4rem;
+}
+
+.mainLink {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.mainLink::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.actions {
+    position: relative;
+    z-index: 2;
+    margin-top: 3.2rem;
+    display: flex;
+    gap: 1.2rem;
+}
+
+.title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem 0;
+}
+
+.description {
+    font-size: 1.6rem;
+    color: var(--text-secondary);
+    margin: 0 0 2.4rem 0;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2.4rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    background-color: var(--color-slate-100);
+    color: var(--color-navy-900);
+
+    padding: 0.4rem 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.2;
+
+    border-radius: 999rem;
+}
+
+.chipIcon {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: currentColor;
+}
+
+.actions {
+    position: relative;
+    display: flex;
+    gap: 1.2rem;
+    z-index: 2;
+    ;
+}
+
+.demoBtn,
+.githubBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+
+    display: flex;
+    flex: 1;
+    height: 4.4rem;
+    border-radius: 0.8rem;
+
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.demoBtn {
+    position: relative;
+    background-color: var(--color-terracotta);
+    color: var(--color-white);
+    font-weight: 600;
+}
+
+.demoIcon, .githubIcon {
+    position:relative;
+    bottom: 0.1rem;
+}
+
+.demoBtn:hover {
+    background-color: var(--color-terracotta-dark);
+}
+
+.githubBtn {
+    /* background-color: transparent; */
+    background-color: var(--color-cream-100);
+    border: 1px solid var(--color-navy-900);
+    color: var(--color-navy-900);
+    /* color: var(--color-slate-100); */
+    font-weight: 500;
+}
+
+.githubBtn:hover {
+    background-color: var(--color-slate-100);
+}
+
+.demoBtn:focus-visible,
+.githubBtn:focus-visible {
+    outline: 2px solid var(--color-navy-900);
+    outline-offset: 2px;
+}

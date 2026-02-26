@@ -1,15 +1,35 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 
-/** about 에서는 사이드바가 대체하고, skills부터 sidebar는 왼쪽으로 들어가면서 아래로 내려온다. */
 export default function Header() {
+  const navigate = useNavigate();
+  const location = useLocation(); 
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault(); 
+
+    if (location.pathname === "/") {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate(`/#${sectionId}`);
+    }
+  };
+
   return (
     <div className={styles.header}>
-      Header
+      <h2 className={styles.title}>
+        <a href="#home" onClick={(e) => handleNavClick(e, "home")}>My Portfolio</a>
+      </h2>
       <nav className={styles.nav}>
-        <ul>about me</ul>
-        <ul>portfolio</ul>
-        <ul>skills</ul>
-        <ul>time line</ul>
+        <ul>
+          <li><a href="#about" onClick={(e) => handleNavClick(e, "about")}>about me</a></li>
+          <li><a href="#portfolio" onClick={(e) => handleNavClick(e, "projects")}>projects</a></li>
+          <li><a href="#skills" onClick={(e) => handleNavClick(e, "skills")}>skills</a></li>
+          <li><a href="#timeline" onClick={(e) => handleNavClick(e, "timeline")}>time line</a></li>
+        </ul>
       </nav>
     </div>
   );
