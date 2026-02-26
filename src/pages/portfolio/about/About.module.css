@@ -1,8 +1,23 @@
+ @media (max-width: 768px) {
+  .connectInfo {
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+    font-size: 1.2rem;
+  }
+
+
+}
+
+
 .container {
   /* max-width: 800px; */
   height: 100vh;
+  max-height: 108rem;
   /* margin: 0 auto; */
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .intro {
@@ -52,8 +67,10 @@
 .about{
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  /* max-width: 80rem; */
+  justify-content: start;
   gap: 20px;
-  max-width: 600px;
 }
 
 .nav{
@@ -82,16 +99,17 @@
   height: 2.4rem;
 }
 
+
+
 .connectInfo {
   display: grid;
-  text-align: center;
+  text-align: left;
   line-height: 1.6;
   grid-template-columns: repeat(2, 1fr); 
-  gap: 15px 30px; /* 위아래 간격 15px, 좌우 간격 30px */
-  margin-top: 20px;
-  max-width: 500px; /* 너무 퍼지지 않게 너비 제한 (선택) */
+  gap: 1.5rem clamp(1rem, 10vw, 13rem); 
+  margin-top: 1.6rem;
   width: fit-content; 
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
 }
 

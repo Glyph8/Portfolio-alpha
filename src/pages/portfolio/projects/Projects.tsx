@@ -1,13 +1,31 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "./components/ProjectCard";
 import styles from "./Projects.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { fetchProjects } from "../../../apis/portfolio-api";
+import { useQuery } from "@tanstack/react-query";
+
 
 export default function Projects() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState(["All", "Frontend", "Mobile", "Backend"]);
+  const [category, setCategory] = useState<Category>(CATEGORIES[0]);
+
+
+  const { data: projects, isLoading, isError, error } = useQuery({
+    queryKey: ['projects'], 
+    queryFn: fetchProjects, 
+  });
+
+
+  // const filteredProjects = category === "All"
+  //   ? PROJECT_LIST
+  //   : PROJECT_LIST.filter(project => project.category === category);
+
+  const filteredProjects = category === "All"
+    ? projects
+    : projects?.filter(project => project.category === category);
 
   const isLogin = true;
 
@@ -23,34 +41,48 @@ export default function Projects() {
   }, [location]);
 
   const handlePostProject = () => {
-    if(isLogin){
+    if (isLogin) {
       navigate("/projects/new");
     }
-    else{
+    else {
       navigate("/login");
     }
   };
 
+  const handleSetFilter = (category: Category) => {
+    setCategory(category);
+  }
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-gray-500">프로젝트를 불러오는 중입니다...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-8 text-center text-red-500">에러가 발생했습니다: {error.message}</div>;
+  }
+
   return <div className={styles.container}>
 
-    <h2 className={styles.title}>Projects 
+    <h2 className={styles.title}>Projects
       <button onClick={handlePostProject} className={styles.postButton}>+</button></h2>
 
     <nav>
       <ul className={styles.navList}>
-        <li className={`${styles.navItem} ${styles.activeNavItem}`}>All</li>
-        <li className={styles.navItem}>Frontend</li>
-        <li className={styles.navItem}>Mobile</li>
-        <li className={styles.navItem}>Backend</li>
+        <li className={`${styles.navItem} ${category === "All" ? styles.activeNavItem : ""}`}
+          onClick={() => handleSetFilter("All")}>All</li>
+        <li className={`${styles.navItem} ${category === "Frontend" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Frontend")}>Frontend</li>
+        <li className={`${styles.navItem} ${category === "Mobile" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Mobile")}>Mobile</li>
+        <li className={`${styles.navItem} ${category === "Backend" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Backend")}>Backend</li>
       </ul>
     </nav>
 
     <div className={styles.projectGrid}>
-      <ProjectCard id={0} title={"My First Project"} description={"This is a sample project description."} imageUrl={"https://placehold.co/600x400/png"} skillChips={["React", "TypeScript"]} projectUrl={"123"} githubUrl={"123"} />
-      <ProjectCard id={0} title={"My First Project"} description={"This is a sample project description."} imageUrl={"https://placehold.co/600x400/png"} skillChips={["React", "TypeScript"]} projectUrl={"123"} githubUrl={"123"} />
-      <ProjectCard id={0} title={"My First Project"} description={"This is a sample project description."} imageUrl={"https://placehold.co/600x400/png"} skillChips={["React", "TypeScript"]} projectUrl={"123"} githubUrl={"123"} />
-      <ProjectCard id={0} title={"My First Project"} description={"This is a sample project description."} imageUrl={"https://placehold.co/600x400/png"} skillChips={["React", "TypeScript"]} projectUrl={"123"} githubUrl={"123"} />
-      <ProjectCard id={0} title={"My First Project"} description={"This is a sample project description."} imageUrl={"https://placehold.co/600x400/png"} skillChips={["React", "TypeScript"]} projectUrl={"123"} githubUrl={"123"} />
+      {
+        filteredProjects && 
+        filteredProjects.map(project => (
+          <ProjectCard key={project.id} {...project} />
+        ))
+      }
     </div>
 
 

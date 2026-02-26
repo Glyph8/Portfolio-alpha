@@ -1,7 +1,8 @@
 .container {
-  height: 500px;
-  background-color: lightblue;
+  height: fit-content;
+  background-color: var(--color-cream-100);
   padding: 3.2rem;
+  padding-bottom: 8.6rem;;
 }
 
 .title{
@@ -45,8 +46,9 @@
 }
 
 .skillChip{
-  background-color: #e0e0e0;
-  padding: 0.4rem 0.8rem;
+  background-color: var(--color-terracotta);
+  color: var(--color-white);
+  padding: 0.5rem 1.6rem;
   border-radius: 1rem;
-  font-size: 0.8rem;
+  font-size: 1.4rem;
 }

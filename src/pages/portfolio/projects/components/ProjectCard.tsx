@@ -1,12 +1,14 @@
 import styles from "./ProjectCard.module.css";
 import githubLogo from "../../../../assets/icons/ic_github.svg";
 import monitorLogo from "../../../../assets/icons/ic_monitor.svg";
+import type { Category } from "../constants";
 
 interface ProjectCardProps {
     id: number;
     title: string;
     description: string;
     imageUrl: string;
+    category: Category;
     skillChips: string[];
     projectUrl: string;
     githubUrl: string;

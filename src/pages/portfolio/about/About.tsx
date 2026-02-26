@@ -26,7 +26,10 @@ export default function About() {
               <img src={instagLogo} alt="Instagram" />
             </button>
             <button className={styles.button}>
-              <img src={githubLogo} alt="GitHub" />
+              <img src={githubLogo} alt="GitHub" style={{
+                backgroundColor: 'white',
+                borderRadius: '50%'
+              }} />
             </button>
             <button className={styles.button}>
               <img src={linkedInLogo} alt="LinkedIn" />
@@ -35,13 +38,13 @@ export default function About() {
 
           <div className={styles.connectInfo}>
             <span className={styles.contactItem}>
-              <img src={phone} alt="Phone" /> 010 1234 5567 </span>
+              <img src={phone} alt="Phone" /> 010-4713-9384 </span>
             <span className={styles.contactItem}>
-              <img src={email} alt="Email" /> john.doe@example.com</span>
+              <img src={email} alt="Email" /> newdy0808@gmail.com</span>
             <span className={styles.contactItem}>
               <img src={birth} alt="Birth" /> 2000.08.08</span>
             <span className={styles.contactItem}>
-              <img src={graduation} alt="Graduation" /> ~대 ~과 졸업</span>
+              <img src={graduation} alt="Graduation" /> 건국대 소프트웨어학과 졸업</span>
           </div>
         </div>
 

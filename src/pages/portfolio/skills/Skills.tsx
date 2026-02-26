@@ -1,4 +1,9 @@
 import styles from "./Skills.module.css";
+import languageIcon from "../../../assets/icons/Programming.png";
+import frontendIcon from "../../../assets/icons/JavaScript.png";
+import backendIcon from "../../../assets/icons/Stack.png";
+import mobileIcon from "../../../assets/icons/Smartphone.png";
+import devOpsIcon from "../../../assets/icons/Cloud Development.png";
 
 export default function Skills() {
   return (
@@ -7,8 +12,8 @@ export default function Skills() {
       <div className={styles.skillsContainer}>
 
         <div className={styles.skillCategory}>
-          <img src="https://placehold.co/100x100" alt="Skill Icon" className={styles.skillIcon} />
-          <p className={styles.skillCategoryTitle}>Frontend</p>
+          <img src={languageIcon} alt="Skill Icon" className={styles.skillIcon} />
+          <p className={styles.skillCategoryTitle}>Language</p>
           <div className={styles.skillChipsContainer}>
             <span className={styles.skillChip}>React</span>
             <span className={styles.skillChip}>TypeScript</span>
@@ -24,32 +29,12 @@ export default function Skills() {
         </div>
 
         <div className={styles.skillCategory}>
-          <img src="https://placehold.co/100x100" alt="Skill Icon" className={styles.skillIcon} />
+          <img src={frontendIcon} alt="Skill Icon" className={styles.skillIcon} />
           <p className={styles.skillCategoryTitle}>Frontend</p>
           <div className={styles.skillChipsContainer}>
             <span className={styles.skillChip}>React</span>
             <span className={styles.skillChip}>TypeScript</span>
             <span className={styles.skillChip}>CSS</span>
-            <span className={styles.skillChip}>React</span>
-            <span className={styles.skillChip}>TypeScript</span>
-            <span className={styles.skillChip}>CSS</span>
-            <span className={styles.skillChip}>React</span>
-            <span className={styles.skillChip}>TypeScript</span>
-            <span className={styles.skillChip}>CSS</span>
-            <span className={styles.skillChip}>React</span>
-            <span className={styles.skillChip}>TypeScript</span>
-            <span className={styles.skillChip}>CSS</span>
-            <span className={styles.skillChip}>React</span>
-            <span className={styles.skillChip}>TypeScript</span>
-            <span className={styles.skillChip}>CSS</span>
-          </div>
-        </div>
-
-
-        <div className={styles.skillCategory}>
-          <img src="https://placehold.co/100x100" alt="Skill Icon" className={styles.skillIcon} />
-          <p className={styles.skillCategoryTitle}>Frontend</p>
-          <div className={styles.skillChipsContainer}>
             <span className={styles.skillChip}>React</span>
             <span className={styles.skillChip}>TypeScript</span>
             <span className={styles.skillChip}>CSS</span>
@@ -67,8 +52,50 @@ export default function Skills() {
 
 
         <div className={styles.skillCategory}>
-          <img src="https://placehold.co/100x100" alt="Skill Icon" className={styles.skillIcon} />
-          <p className={styles.skillCategoryTitle}>Frontend</p>
+          <img src={backendIcon} alt="Skill Icon" className={styles.skillIcon} />
+          <p className={styles.skillCategoryTitle}>Backend</p>
+          <div className={styles.skillChipsContainer}>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+          </div>
+        </div>
+
+
+        <div className={styles.skillCategory}>
+          <img src={mobileIcon} alt="Skill Icon" className={styles.skillIcon} />
+          <p className={styles.skillCategoryTitle}>Mobile</p>
+          <div className={styles.skillChipsContainer}>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+            <span className={styles.skillChip}>React</span>
+            <span className={styles.skillChip}>TypeScript</span>
+            <span className={styles.skillChip}>CSS</span>
+          </div>
+        </div>
+
+        <div className={styles.skillCategory}>
+          <img src={devOpsIcon} alt="Skill Icon" className={styles.skillIcon} />
+          <p className={styles.skillCategoryTitle}>devOps</p>
           <div className={styles.skillChipsContainer}>
             <span className={styles.skillChip}>React</span>
             <span className={styles.skillChip}>TypeScript</span>
