@@ -13,6 +13,10 @@
   margin-bottom: 3.2rem;
 }
 
+.postButton{
+  color: var(--text-primary);
+}
+
 .navList {
   display: flex;
   gap: 1.2rem;

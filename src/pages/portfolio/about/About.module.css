@@ -6,30 +6,40 @@
 }
 
 .intro {
-  margin-bottom: 50px;
   text-align: center;
   display: flex;
-  height: 576px;
+  flex-direction: column;
+  gap: 2.4rem;
+  /* height: 576px; */
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  background: url('/imgs/img_intro_background.jpg') lightgray 50% / cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/imgs/img_intro_background.jpg') no-repeat center / cover;
+  background-color: lightgray; 
+  min-height: 400px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
 .description {
-  color: #666;
+  color: var(--text-secondary);
+  font-size: 2.4rem;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .myInfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 4rem;
+  padding: 3.2rem;
+  max-height: fit-content;
 }
 
 .portrait {
@@ -39,38 +49,64 @@
   object-fit: cover;
 }
 
+.about{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.nav{
+  display: flex;
+  gap: 20px;
+  justify-content: start;
+  align-items: center;
+}
+
 .name {
-  font-size: 1.5rem;
+  font-size: 3.2rem;
   font-weight: 600;
   text-align: center;
 }
 
-/* --- 링크 속성 제거 및 스타일링 --- */
-.socialLinks {
-  list-style: none;
-  padding: 0;
+.button{
+  width: 2.4rem;
+  height: 2.4rem;
   display: flex;
-  gap: 15px;
   justify-content: center;
-  margin-top: 10px;
+  align-items: center;
 }
 
-.socialLinks li a {
-  text-decoration: none;
-  /* 밑줄 제거 */
-  color: #333;
-  /* 파란색/보라색 대신 검정계열 */
-  font-size: 0.9rem;
-  transition: color 0.2s;
-}
-
-.socialLinks li a:hover {
-  color: #007bff;
-  /* 마우스 올렸을 때만 색상 변화 */
+.button img{
+  width: 2.4rem;
+  height: 2.4rem;
 }
 
 .connectInfo {
+  display: grid;
   text-align: center;
   line-height: 1.6;
-  color: #444;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px 30px; /* 위아래 간격 15px, 좌우 간격 30px */
+  margin-top: 20px;
+  max-width: 500px; /* 너무 퍼지지 않게 너비 제한 (선택) */
+  width: fit-content; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contactItem{
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 2.4rem;
+
+  justify-content: flex-start; 
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.contactItem img{
+  width: 2.4rem;
+  height: 2.4rem;
+  object-fit: contain;
 }

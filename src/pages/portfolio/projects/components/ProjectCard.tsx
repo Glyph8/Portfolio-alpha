@@ -1,4 +1,6 @@
 import styles from "./ProjectCard.module.css";
+import githubLogo from "../../../../assets/icons/ic_github.svg";
+import monitorLogo from "../../../../assets/icons/ic_monitor.svg";
 
 interface ProjectCardProps {
     id: number;
@@ -35,12 +37,12 @@ export default function ProjectCard(props: ProjectCardProps) {
 
                 <div className={styles.actions}>
                     <button className={styles.demoBtn} type="button">
-                        <img src="/icons/ic_monitor.svg" alt="Live Demo" className={styles.demoIcon} />
+                        <img src={monitorLogo} alt="Live Demo" className={styles.demoIcon} />
                         Live Demo
                     </button>
 
                     <button className={styles.githubBtn} type="button">
-                        <img src="/icons/ic_github.svg" alt="GitHub" className={styles.githubIcon} />
+                        <img src={githubLogo} alt="GitHub" className={styles.githubIcon} />
                         GitHub
                     </button>
                 </div>

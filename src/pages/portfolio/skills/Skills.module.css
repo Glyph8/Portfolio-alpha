@@ -1,4 +1,52 @@
 .container {
   height: 500px;
   background-color: lightblue;
+  padding: 3.2rem;
+}
+
+.title{
+  font-size: 3.2rem;
+  font-weight: bold;
+  color: var(--color-navy-900);
+  text-align: center;
+  margin-bottom: 3.2rem;
+}
+
+.skillsContainer{
+   background-color: white;
+    border-radius: 2rem;
+}
+
+.skillIcon{
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+}
+
+.skillCategoryTitle{
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--color-navy-900);
+}
+
+.skillCategory{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+
+  padding: 2.4rem 3.2rem;
+}
+
+.skillChipsContainer{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.skillChip{
+  background-color: #e0e0e0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
 }

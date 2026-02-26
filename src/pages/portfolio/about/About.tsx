@@ -1,4 +1,12 @@
 import styles from "./About.module.css";
+import instagLogo from "../../../assets/icons/ic_insta.svg";
+import githubLogo from "../../../assets/icons/ic_github.svg";
+import linkedInLogo from "../../../assets/icons/ic_linkedIn.svg";
+import phone from "../../../assets/icons/ic_phone.svg";
+import email from "../../../assets/icons/ic_mail.svg";
+import birth from "../../../assets/icons/ic_calendar.svg";
+import graduation from "../../../assets/icons/ic_school.svg";
+
 
 export default function About() {
   return (
@@ -9,24 +17,32 @@ export default function About() {
       </div>
       <div className={styles.myInfo}>
         <img src="https://placehold.co/300x300" alt="Portrait" className={styles.portrait} />
-        
-        
-        <div className={styles.name}>
-          Hi, I'm John Doe
-          <nav>
-            <ul className={styles.socialLinks}>
-              <li><a href="https://github.com/johndoe" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-              <li><a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href="https://twitter.com/johndoe" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-            </ul>
+
+
+        <div className={styles.about}>
+          <nav className={styles.nav}>
+            <p className={styles.name}>강동윤</p>
+            <button className={styles.button}>
+              <img src={instagLogo} alt="Instagram" />
+            </button>
+            <button className={styles.button}>
+              <img src={githubLogo} alt="GitHub" />
+            </button>
+            <button className={styles.button}>
+              <img src={linkedInLogo} alt="LinkedIn" />
+            </button>
           </nav>
-        </div>
-        
-        <div className={styles.connectInfo}>
-          <p> 010 1234 5567 </p>
-          <p>john.doe@example.com</p>
-          <p>2000.08.08</p>
-          <p>~대 ~과 졸업</p>
+
+          <div className={styles.connectInfo}>
+            <span className={styles.contactItem}>
+              <img src={phone} alt="Phone" /> 010 1234 5567 </span>
+            <span className={styles.contactItem}>
+              <img src={email} alt="Email" /> john.doe@example.com</span>
+            <span className={styles.contactItem}>
+              <img src={birth} alt="Birth" /> 2000.08.08</span>
+            <span className={styles.contactItem}>
+              <img src={graduation} alt="Graduation" /> ~대 ~과 졸업</span>
+          </div>
         </div>
 
       </div>
