@@ -23,9 +23,9 @@ export default function Layout() {
     }, [dispatch]);
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div>
             <Header />
-            <main className="flex-1 p-8">
+            <main>
                 <Outlet />
             </main>
             <Footer />

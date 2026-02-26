@@ -1,10 +1,76 @@
 .container {
+  /* max-width: 800px; */
   height: 100vh;
-  background-color: antiquewhite;
+  /* margin: 0 auto; */
+  font-family: sans-serif;
 }
 
-.sidebar {
-  width: 200px;
-  height: 100%;
-  background-color: lightgray;
+.intro {
+  margin-bottom: 50px;
+  text-align: center;
+  display: flex;
+  height: 576px;
+  justify-content: center;
+  align-items: center;
+  background: url('/imgs/img_intro_background.jpg') lightgray 50% / cover no-repeat;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description {
+  color: #666;
+}
+
+.myInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.portrait {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --- 링크 속성 제거 및 스타일링 --- */
+.socialLinks {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.socialLinks li a {
+  text-decoration: none;
+  /* 밑줄 제거 */
+  color: #333;
+  /* 파란색/보라색 대신 검정계열 */
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.socialLinks li a:hover {
+  color: #007bff;
+  /* 마우스 올렸을 때만 색상 변화 */
+}
+
+.connectInfo {
+  text-align: center;
+  line-height: 1.6;
+  color: #444;
 }

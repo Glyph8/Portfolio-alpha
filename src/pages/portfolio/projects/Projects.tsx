@@ -10,13 +10,13 @@ export default function Projects() {
     if (location.hash) {
       const elementId = location.hash.replace('#', '');
       const element = document.getElementById(elementId);
-      
+
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [location]); 
-  
+  }, [location]);
+
 
   return <div className={styles.container}>
 
