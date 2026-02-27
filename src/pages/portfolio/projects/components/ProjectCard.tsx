@@ -1,18 +1,8 @@
 import styles from "./ProjectCard.module.css";
 import githubLogo from "../../../../assets/icons/ic_github.svg";
 import monitorLogo from "../../../../assets/icons/ic_monitor.svg";
-import type { Category } from "../constants";
+import type { ProjectCardProps } from "../../../../types/projec-type";
 
-interface ProjectCardProps {
-    id: number;
-    title: string;
-    description: string;
-    imageUrl: string;
-    category: Category;
-    skillChips: string[];
-    projectUrl: string;
-    githubUrl: string;
-}
 
 export default function ProjectCard(props: ProjectCardProps) {
     return (
