@@ -15,9 +15,6 @@ export default function Skills() {
 
   const { projects, isLoading, isError, error } = useProjects();
 
-  console.log(projects, isLoading, isError, error);
-
-
   // 각 프로젝트의 project_skills를 순회.
   // 각 skill 마다의 categories를 읽고, 만약 추가되지 않은 category라면 skillData에 추가
   // 그리고 해당 category에 skill들을 추가.

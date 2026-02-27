@@ -1,10 +1,17 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
+import type { RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../../store/authSlice";
+import { supabase } from "../../libs/supabaseClient";
 
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation(); 
 
+  const {isLoggedIn} = useSelector((state: RootState) => state.auth);
+   const dispatch = useDispatch();
+   
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault(); 
 
@@ -18,10 +25,24 @@ export default function Header() {
     }
   };
 
+  const handleLogout = async () => {
+        await supabase.auth.signOut();
+        dispatch(clearUser());
+        navigate('/');
+    };
+
   return (
     <div className={styles.header}>
       <h2 className={styles.title}>
-        <a href="#home" onClick={(e) => handleNavClick(e, "home")}>My Portfolio</a>
+        {
+          isLoggedIn ? (
+                <button 
+                className={styles.logoutButton}
+                onClick={handleLogout}>Logout</button>
+          ) : (
+            <a href="#home" onClick={(e) => handleNavClick(e, "home")}>My Portfolio</a>
+          )
+        }
       </h2>
         <ul className={styles.nav}>
           <li className={styles.navActive}><a href="#about" onClick={(e) => handleNavClick(e, "about")}>about me</a></li>

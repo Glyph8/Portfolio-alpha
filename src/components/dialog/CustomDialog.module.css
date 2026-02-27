@@ -19,7 +19,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vw;
+  /* width: 90vw; */
   max-width: 45rem; 
   z-index: 51;
   
@@ -37,7 +37,7 @@
   font-size: 1.4rem; 
   color: var(--text-secondary); 
   margin-top: 0;
-  margin-bottom: 2.4rem;
+  margin-bottom: 1.6rem;
   line-height: 1.6;
 }
 

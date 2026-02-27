@@ -10,6 +10,14 @@
     align-items: center;
 }
 
+.logoutButton{
+    background-color: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 3.2rem;
+    cursor: pointer;
+}
+
 .title{
     font-size: 32px;
     font-weight: bold;

@@ -2,18 +2,15 @@ import * as Dialog from '@radix-ui/react-dialog';
 import styles from './CustomDialog.module.css';
 
 interface CustomDialogProps {
-    triggerButton: React.ReactNode;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
     description?: string; children: React.ReactNode;
 }
 
-export default function CustomDialog({ triggerButton, title, description, children }: CustomDialogProps) {
+export default function CustomDialog({ open, setOpen, title, description, children }: CustomDialogProps) {
     return (
-        <Dialog.Root>
-            <Dialog.Trigger asChild>
-                {triggerButton}
-            </Dialog.Trigger>
-
+        <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Portal>
                 <Dialog.Overlay className={styles.dialogOverlay} />
                 <Dialog.Content className={styles.dialogContent}>
@@ -28,11 +25,6 @@ export default function CustomDialog({ triggerButton, title, description, childr
                     <div className={styles.dialogBody}>
                         {children}
                     </div>
-
-                    <Dialog.Close asChild>
-                        <button className={styles.dialogCloseButton}>X</button>
-                    </Dialog.Close>
-
                 </Dialog.Content>
             </Dialog.Portal>
         </Dialog.Root>

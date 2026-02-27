@@ -5,27 +5,30 @@ import { useNavigate } from "react-router-dom";
 import type { Category } from "../../../types/projec-type";
 import { useProjects } from "./hooks/use-projects";
 import Loading from "../../../components/loading/Loading";
+import Login from "../../../components/dialog/Login";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../store/store";
 
 
 export default function Projects() {
   const navigate = useNavigate();
 
   const [category, setCategory] = useState<Category>("All");
-
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const {projectsOverview, isLoading, isError, error } = useProjects();
 
   const filteredProjects = category === "All"
     ?  projectsOverview
     :  projectsOverview?.filter(project => project.category === category);
 
-  const isLogin = true;
+  const {isLoggedIn} = useSelector((state: RootState) => state.auth);
 
   const handlePostProject = () => {
-    if (isLogin) {
+    if (isLoggedIn) {
       navigate("/projects/new");
     }
     else {
-      navigate("/login");
+      setIsLoginOpen(true);
     }
   };
 
@@ -42,7 +45,10 @@ export default function Projects() {
   }
 
   return <div className={styles.container}>
-        
+      {
+        isLoginOpen && <Login isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
+      }
+
     <h2 className={styles.title}>Projects
       <button onClick={handlePostProject} className={styles.postButton}>+</button></h2>
 

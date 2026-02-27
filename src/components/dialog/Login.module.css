@@ -1,0 +1,49 @@
+.loginBody{
+    display:flex;
+    /* flex-direction: row; */
+    flex-direction: column;
+    gap: 3.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginInput{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    gap: 1.5rem;
+   
+}
+
+.loginInput label{
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+}
+
+.loginInput input{
+    border-radius: 0.5rem;
+    height: 3rem;
+    padding: 0.5rem 1.5rem;
+}
+
+.loginButton{
+    background-color: var(--action-primary);
+    color: var(--color-slate-500);
+    border: none;
+    border-radius: 0.5rem;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    padding : 2rem 2rem;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginButton:hover{
+    background-color: var(--action-primary-hover);
+}
