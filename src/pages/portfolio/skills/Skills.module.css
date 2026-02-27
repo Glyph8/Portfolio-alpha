@@ -52,3 +52,35 @@
   border-radius: 1rem;
   font-size: 1.4rem;
 }
+
+/* 기본 칩 스타일 (공통) */
+.skillChip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 4px;
+}
+
+/* 카테고리별 색상 부여 */
+.frontend {
+  background-color: #e0f2fe; /* 옅은 파란색 */
+  color: #0369a1;            /* 진한 파란색 */
+}
+
+.backend {
+  background-color: #dcfce7; /* 옅은 초록색 */
+  color: #15803d;            /* 진한 초록색 */
+}
+
+.devops {
+  background-color: #f3e8ff; /* 옅은 보라색 */
+  color: #7e22ce;            /* 진한 보라색 */
+}
+
+/* 매칭되는 카테고리가 없을 때의 기본색 */
+.defaultCategory {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
