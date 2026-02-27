@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, ScrollRestoration } from "react-router";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import { useDispatch } from "react-redux";
@@ -28,6 +28,7 @@ export default function Layout() {
             <main>
                 <Outlet />
             </main>
+            <ScrollRestoration />
             <Footer />
         </div>
     );

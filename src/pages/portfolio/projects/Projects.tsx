@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProjectCard from "./components/ProjectCard";
 import styles from "./Projects.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { Category } from "../../../types/projec-type";
 import { useProjects } from "./hooks/use-projects";
 
 
 export default function Projects() {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [category, setCategory] = useState<Category>("All");
@@ -19,17 +18,6 @@ export default function Projects() {
     :  projectsOverview?.filter(project => project.category === category);
 
   const isLogin = true;
-
-  useEffect(() => {
-    if (location.hash) {
-      const elementId = location.hash.replace('#', '');
-      const element = document.getElementById(elementId);
-
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }, [location]);
 
   const handlePostProject = () => {
     if (isLogin) {
