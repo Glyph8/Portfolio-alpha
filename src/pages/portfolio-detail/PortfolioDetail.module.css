@@ -1,0 +1,74 @@
+
+/* ==========================================
+   ReactMarkdown 스타일 복구 영역
+   ========================================== */
+.readme {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* 제목(Heading) 스타일 복구 */
+.readme h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-top: 2.4rem;
+  margin-bottom: 1.6rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-base); /* 밑줄 포인트 */
+}
+
+.readme h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 2.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.readme h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* 본문 및 단락 스타일 */
+.readme p {
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+/* 목록(리스트) 스타일 복구 */
+.readme ul, 
+.readme ol {
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+  padding-left: 2.4rem; /* 들여쓰기 복구 */
+}
+
+.readme ul {
+  list-style-type: disc; /* 점 모양 불릿 */
+}
+
+.readme ol {
+  list-style-type: decimal; /* 숫자 불릿 */
+}
+
+.readme li {
+  margin-bottom: 0.8rem;
+}
+
+/* 굵은 글씨, 강조 */
+.readme strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* 인용구 (Blockquote) */
+.readme blockquote {
+  margin: 0 0 1.6rem 0;
+  padding: 0.8rem 1.6rem;
+  border-left: 0.4rem solid var(--color-navy-500);
+  background-color: var(--bg-section-alt);
+  color: var(--text-secondary);
+  border-radius: 0 0.4rem 0.4rem 0;
+}

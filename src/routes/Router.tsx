@@ -3,7 +3,7 @@ import PortfolioDetail from "../pages/portfolio-detail/PortfolioDetail";
 import { createBrowserRouter } from "react-router";
 import PortfolioPost from "../pages/portfolio-post/PortfolioPost";
 import Layout from "./Layout";
-import NotFound from "../NotFound";
+import NotFound from "../components/error/NotFound";
 
 export const router = createBrowserRouter([
     {
@@ -13,8 +13,8 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <Portfolio /> },
             { path: "portfolio", element: <Portfolio /> },
-            { path: "portfolio/:id", element: <PortfolioDetail /> },
-            { path: "portfolio-post/:id", element: <PortfolioPost /> },
+            { path: "projects/:id", element: <PortfolioDetail /> },
+            { path: "projects/new", element: <PortfolioPost /> },
             { path: "*", element: <NotFound/> }
         ]
     }

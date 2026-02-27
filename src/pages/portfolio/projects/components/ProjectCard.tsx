@@ -14,7 +14,7 @@ export default function ProjectCard(props: ProjectCardProps) {
 
             <div className={styles.content}>
                 <h3 className={styles.title}>
-                    <Link to={`/portfolio/${props.id}`} className={styles.mainLink}>
+                    <Link to={`/projects/${props.id}`} className={styles.mainLink}>
                         {props.title} <span>↗</span>
                     </Link>
                 </h3>
