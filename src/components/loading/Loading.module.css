@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 100vh; */
+  min-height: 100%;
+  background-color: var(--bg-main);
+}
+
+.spinner {
+  width: 5.6rem;
+  height: 5.6rem;
+  border: 0.6rem solid var(--border-base);
+  border-top: 0.6rem solid var(--action-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.text {
+  margin-top: 2.4rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

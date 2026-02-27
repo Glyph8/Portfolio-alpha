@@ -2,7 +2,7 @@ import styles from "./Skills.module.css";
 
 import { SKILLS } from "./contants";
 import { useProjects } from "../projects/hooks/use-projects";
-import Loading from "../../../Loading";
+import Loading from "../../../components/loading/Loading";
 import { useMemo } from "react";
 
 interface CategorySkills {

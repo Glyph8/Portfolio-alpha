@@ -4,7 +4,7 @@ import styles from "./Projects.module.css";
 import { useNavigate } from "react-router-dom";
 import type { Category } from "../../../types/projec-type";
 import { useProjects } from "./hooks/use-projects";
-import Loading from "../../../Loading";
+import Loading from "../../../components/loading/Loading";
 
 
 export default function Projects() {
