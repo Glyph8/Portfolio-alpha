@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import ProjectCard from "./components/ProjectCard";
 import styles from "./Projects.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchAndTransformProjects } from "../../../apis/portfolio-api";
-import { useQuery } from "@tanstack/react-query";
 import type { Category } from "../../../types/projec-type";
+import { useProjects } from "./hooks/use-projects";
 
 
 export default function Projects() {
@@ -13,15 +12,11 @@ export default function Projects() {
 
   const [category, setCategory] = useState<Category>("All");
 
-
-  const { data: projects, isLoading, isError, error } = useQuery({
-    queryKey: ['projects'], 
-    queryFn: fetchAndTransformProjects, 
-  });
+  const {projectsOverview, isLoading, isError, error } = useProjects();
 
   const filteredProjects = category === "All"
-    ? projects
-    : projects?.filter(project => project.category === category);
+    ?  projectsOverview
+    :  projectsOverview?.filter(project => project.category === category);
 
   const isLogin = true;
 
@@ -54,7 +49,7 @@ export default function Projects() {
   }
 
   if (isError) {
-    return <div className="p-8 text-center text-red-500">에러가 발생했습니다: {error.message}</div>;
+    return <div className="p-8 text-center text-red-500">에러가 발생했습니다: {error?.message}</div>;
   }
 
   return <div className={styles.container}>
@@ -66,9 +61,9 @@ export default function Projects() {
       <ul className={styles.navList}>
         <li className={`${styles.navItem} ${category === "All" ? styles.activeNavItem : ""}`}
           onClick={() => handleSetFilter("All")}>All</li>
-        <li className={`${styles.navItem} ${category === "Front-end" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Front-end")}>Frontend</li>
+        <li className={`${styles.navItem} ${category === "Frontend" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Frontend")}>Frontend</li>
         <li className={`${styles.navItem} ${category === "Mobile" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Mobile")}>Mobile</li>
-        <li className={`${styles.navItem} ${category === "Back-end" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Back-end")}>Backend</li>
+        <li className={`${styles.navItem} ${category === "Backend" ? styles.activeNavItem : ""}`} onClick={() => handleSetFilter("Backend")}>Backend</li>
       </ul>
     </nav>
 

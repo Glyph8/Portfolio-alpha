@@ -2,6 +2,7 @@ import styles from "./ProjectCard.module.css";
 import githubLogo from "../../../../assets/icons/ic_github.svg";
 import monitorLogo from "../../../../assets/icons/ic_monitor.svg";
 import type { ProjectCardProps } from "../../../../types/projec-type";
+import { Link } from "react-router-dom";
 
 
 export default function ProjectCard(props: ProjectCardProps) {
@@ -13,9 +14,9 @@ export default function ProjectCard(props: ProjectCardProps) {
 
             <div className={styles.content}>
                 <h3 className={styles.title}>
-                    <a href={`/portfolio/${props.projectUrl}`} className={styles.mainLink}>
+                    <Link to={`/portfolio/${props.id}`} className={styles.mainLink}>
                         {props.title} <span>↗</span>
-                    </a>
+                    </Link>
                 </h3>
                 <p className={styles.description}>
                     {props.description}

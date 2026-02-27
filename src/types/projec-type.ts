@@ -1,5 +1,5 @@
-export type Category = "All" | "Front-end" | "Back-end" | "Mobile" |"DevOps" | "Uncategorized";
-export const CATEGORIES: Category[] = ["All", "Front-end", "Back-end", "Mobile", "DevOps"];
+export type Category = "All" | "Frontend" | "Backend" | "Mobile" |"DevOps" | "Uncategorized";
+export const CATEGORIES: Category[] = ["All", "Frontend", "Backend", "Mobile", "DevOps"];
 
 export interface RawCategorySkill {
   categories: { categoryname: string };
