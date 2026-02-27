@@ -49,7 +49,7 @@ export default function Login({ isOpen, setIsOpen }: LoginProps) {
                         <input id="passwordInput" type="password" placeholder="비밀번호" className={styles.passwordInput} 
                         onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
-
+                    {error && <p className={styles.errorMessage}>{error}</p>}
                     <button className={styles.loginButton}>로그인</button>
                 </form>
 
