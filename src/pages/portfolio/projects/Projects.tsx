@@ -4,6 +4,7 @@ import styles from "./Projects.module.css";
 import { useNavigate } from "react-router-dom";
 import type { Category } from "../../../types/projec-type";
 import { useProjects } from "./hooks/use-projects";
+import Loading from "../../../Loading";
 
 
 export default function Projects() {
@@ -33,7 +34,7 @@ export default function Projects() {
   }
 
   if (isLoading) {
-    return <div className="p-8 text-center text-gray-500">프로젝트를 불러오는 중입니다...</div>;
+    return <Loading/>;
   }
 
   if (isError) {
