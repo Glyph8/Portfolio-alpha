@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 
 export default function ProjectCard(props: ProjectCardProps) {
+    
     return (
         <article className={styles.card}>
             <div className={styles.imageWrapper}>
