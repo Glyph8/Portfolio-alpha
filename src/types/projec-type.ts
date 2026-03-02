@@ -1,4 +1,4 @@
-export type Category = "All" | "Frontend" | "Backend" | "Mobile" |"DevOps" | "Uncategorized";
+export type Category = "All" | "Frontend" | "Backend" | "Mobile" | "DevOps" | "Uncategorized";
 export const CATEGORIES: Category[] = ["All", "Frontend", "Backend", "Mobile", "DevOps"];
 
 export interface RawCategorySkill {
@@ -22,18 +22,22 @@ export interface RawProject {
   overview: string;
   img_url: string | null;
   readme: string;
+  slogan: string | null;
+  introduction: string | null;
   github_url: string | null;
   project_url: string | null;
   project_skills: RawProjectSkill[];
 }
 
 export interface ProjectCardProps {
-  id: number;            
+  id: number;
   title: string;
-  description: string;   
-  imageUrl: string;      
-  category: Category;    
-  skillChips: string[];  
+  description: string;
+  imageUrl: string;
+  category: Category;
+  skillChips: string[];
+  slogan: string;
+  introduction: string;
   projectUrl: string;
   githubUrl: string;
 }

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 
 export const useSkillReasonScroll = (scrollRef: React.RefObject<HTMLDivElement | null>) => {
     const [maskState, setMaskState] = useState('right');
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const isDragging = useRef(false);
     const startX = useRef(0);
@@ -35,12 +36,27 @@ export const useSkillReasonScroll = (scrollRef: React.RefObject<HTMLDivElement |
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
 
         const isAtStart = scrollLeft <= 0;
-        // 오차 범위를 위해 -1 정도 여유를 줍니다.
         const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 1;
 
         if (isAtStart) setMaskState('right');
         else if (isAtEnd) setMaskState('left');
-        else setMaskState('both'); // 중간에 있을 때
+        else setMaskState('both')
+
+        const children = scrollRef.current.children;
+        let closestIndex = 0;
+        let minDiff = Infinity;
+
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i] as HTMLElement;
+            const childScrollLeft = child.offsetLeft - scrollRef.current.offsetLeft;
+            const diff = Math.abs(childScrollLeft - scrollLeft);
+
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestIndex = i;
+            }
+        }
+        setActiveIndex(closestIndex);
     };
 
 
@@ -57,6 +73,6 @@ export const useSkillReasonScroll = (scrollRef: React.RefObject<HTMLDivElement |
     }
 
     return {
-        maskState, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
+        maskState, activeIndex, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
     }
 }

@@ -43,6 +43,8 @@ export const useProjects = () => {
                 imageUrl: project.img_url || "https://placehold.co/600x400/cccccc/ffffff?text=No+Image",
                 category: mainCategory as Category,
                 skillChips: skillChips,
+                slogan: project.slogan || "프로젝트 슬로건이 없습니다.",
+                introduction: project.introduction || "프로젝트 소개가 작성되지 않았습니다.",
                 projectUrl: project.project_url || "#",
                 githubUrl: project.github_url || "#"
             };

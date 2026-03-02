@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 export default function ProjectCard(props: ProjectCardProps) {
-    
+
     return (
         <article className={styles.card}>
             <div className={styles.imageWrapper}>
@@ -30,15 +30,15 @@ export default function ProjectCard(props: ProjectCardProps) {
                 </div>
 
                 <div className={styles.actions}>
-                    <button className={styles.demoBtn} type="button">
+                    <Link to={props.projectUrl} className={styles.demoBtn} type="button">
                         <img src={monitorLogo} alt="Live Demo" className={styles.demoIcon} />
                         Live Demo
-                    </button>
+                    </Link>
 
-                    <button className={styles.githubBtn} type="button">
+                    <Link to={props.githubUrl} className={styles.githubBtn} type="button">
                         <img src={githubLogo} alt="GitHub" className={styles.githubIcon} />
                         GitHub
-                    </button>
+                    </Link>
                 </div>
             </div>
         </article>

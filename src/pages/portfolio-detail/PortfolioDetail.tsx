@@ -7,7 +7,7 @@ import Loading from "../../components/loading/Loading";
 import NotFound from "../../components/error/NotFound";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useSkillReasonScroll } from "./hooks/use-skill-reason-scroll";
 
 export default function PortfolioDetail() {
@@ -22,18 +22,10 @@ export default function PortfolioDetail() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const {
-    maskState, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
+    maskState, activeIndex, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
   } = useSkillReasonScroll(scrollRef);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (!projects || projects.length === 0 || isError) {
-    return <NotFound />;
-  }
-
-  const project = projects.find((p) => p.project_id === Number(id));
+  const project = projects?.find((p) => p.project_id === Number(id));
 
   const handleBack = () => {
     navigate(-1);
@@ -42,6 +34,14 @@ export default function PortfolioDetail() {
   useEffect(() => {
     handleScroll();
   }, [project]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!project || isError) {
+    return <NotFound />;
+  }
 
   return (
     <div className={styles.container}>
@@ -62,6 +62,7 @@ export default function PortfolioDetail() {
             <ul>
               {project?.project_skills.map((ps, index) => (
                 <li key={ps.skills.name}
+                  className={activeIndex === index ? styles.activeSkill : undefined}
                   onClick={() => handleSkillClick(index)}
                   style={{ cursor: "pointer" }}
                 >{ps.skills.name}</li>
@@ -71,9 +72,9 @@ export default function PortfolioDetail() {
         </div>
 
         <div className={styles.projectOverview}>
-          <div>
-            <h2>프로젝트 슬로건</h2>
-            <p>프로젝트 소개소개소개소개개개개개</p>
+          <div className={styles.projectOverviewContent}>
+            <h2 className={styles.projectSlogan}>{project.slogan}</h2>
+            <p className={styles.projectIntroduction}>{project.introduction}</p>
           </div>
 
           <nav className={`${styles.techStacksContainer} ${maskState === 'right' ? styles.maskRight :
@@ -82,15 +83,15 @@ export default function PortfolioDetail() {
             }`}
             ref={scrollRef}
             onMouseDown={onDragStart}
-            onMouseLeave={onDragEnd} // 마우스가 영역을 벗어나면 드래그 종료
-            onMouseUp={onDragEnd}    // 클릭을 떼면 드래그 종료
+            onMouseLeave={onDragEnd}
+            onMouseUp={onDragEnd}
             onMouseMove={onDragMove}
             onScroll={handleScroll}
           >
             {
               project?.project_skills.map((ps) => {
                 return (
-                  <div className={styles.techStacksCard}>
+                  <div className={styles.techStacksCard} key={ps.skills.name}>
                     <div className={styles.techStacksCardTitle}>
                       {ps.skills.name}
                     </div>
