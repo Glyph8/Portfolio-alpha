@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { useEffect, useRef } from "react";
 import { useSkillReasonScroll } from "./hooks/use-skill-reason-scroll";
+import PortfolioLayout from "./layout/PortfolioLayout";
 
 export default function PortfolioDetail() {
 
@@ -43,35 +44,35 @@ export default function PortfolioDetail() {
     return <NotFound />;
   }
 
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>{project?.title}</h1>
+    <PortfolioLayout
+      titleSlot={<h1>{project?.title}</h1>}
 
-      <section className={styles.projectHeader}>
+      infoSlot={
+        <>
+          <h2>프로젝트 정보</h2>
+          <p>역할: {project?.role}</p>
+          <p>기간: {project?.duration}</p>
+          <p>기여도: {project?.contribution}</p>
+        </>
+      }
 
-        <div className={styles.projectInfo}>
-          <div className={styles.projectInfoItem}>
-            <h2>프로젝트 정보</h2>
-            <p>역할: {project?.role}</p>
-            <p>기간: {project?.duration}</p>
-            <p>기여도: {project?.contribution}</p>
-          </div>
+      skillsSlot={
+        <ul>
+          {project?.project_skills.map((ps, index) => (
+            <li key={ps.skills.name}
+              className={activeIndex === index ? styles.activeSkill : undefined}
+              onClick={() => handleSkillClick(index)}
+              style={{ cursor: "pointer" }}
+            >{ps.skills.name}</li>
+          ))}
+        </ul>
+      }
 
-          <div className={styles.techStacks}>
-            <h2>사용 기술 스택</h2>
-            <ul>
-              {project?.project_skills.map((ps, index) => (
-                <li key={ps.skills.name}
-                  className={activeIndex === index ? styles.activeSkill : undefined}
-                  onClick={() => handleSkillClick(index)}
-                  style={{ cursor: "pointer" }}
-                >{ps.skills.name}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className={styles.projectOverview}>
+      overviewSlot={
+        // 기존 슬로건, 소개, 그리고 드래그 스크롤되는 스킬 카드 리스트
+        <>
           <div className={styles.projectOverviewContent}>
             <h2 className={styles.projectSlogan}>{project.slogan}</h2>
             <p className={styles.projectIntroduction}>{project.introduction}</p>
@@ -103,28 +104,29 @@ export default function PortfolioDetail() {
               })
             }
           </nav>
-        </div>
+        </>
+      }
 
-      </section>
-
-      <div className={styles.readme}>
+      readmeSlot={
         <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
           {project?.readme || README_CONTENT}
         </ReactMarkdown>
-      </div>
+      }
 
-      <nav className={styles.actions}>
-        <button onClick={handleBack}>
-          목록으로
-        </button>
-        <button>
-          수정하기
-        </button>
-        <button>
-          삭제하기
-        </button>
-      </nav>
+      actionSlot={
+        <>
+          <button onClick={handleBack}>
+            목록으로
+          </button>
+          <button>
+            수정하기
+          </button>
+          <button>
+            삭제하기
+          </button>
+        </>
+      }
+    />
+  );
 
-    </div>
-  )
 }
