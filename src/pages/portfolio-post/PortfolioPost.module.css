@@ -9,7 +9,7 @@
 .inputElement {
   width: 100%;
   padding: 1.2rem 1.6rem;
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 0.8rem;
   font-size: 1.5rem;
   color: var(--text-primary);
@@ -21,14 +21,14 @@
 .inputElement:focus {
   outline: none;
   border-color: var(--action-primary);
-  box-shadow: 0 0 0 3px rgba(250, 80, 46, 0.1);
+  box-shadow: 0 0 0 0.3rem rgba(250, 80, 46, 0.1);
 }
 
 .titleInput {
   font-size: 3.6rem;
   font-weight: 800;
   padding: 1.6rem 2.4rem;
-  border: 2px dashed var(--border-light);
+  border: 0.2rem dashed var(--border-light);
   background-color: transparent;
   color: var(--text-primary);
 }
@@ -46,7 +46,7 @@
 .textareaElement {
   width: 100%;
   padding: 1.6rem;
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 0.8rem;
   font-size: 1.5rem;
   color: var(--text-primary);
@@ -61,7 +61,7 @@
 .textareaElement:focus {
   outline: none;
   border-color: var(--action-primary);
-  box-shadow: 0 0 0 3px rgba(250, 80, 46, 0.1);
+  box-shadow: 0 0 0 0.3rem rgba(250, 80, 46, 0.1);
 }
 
 .readmeTextarea {
@@ -111,7 +111,7 @@
   padding: 0 2.4rem;
   background-color: var(--bg-section-alt);
   color: var(--text-primary);
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 0.8rem;
   cursor: pointer;
   font-weight: 600;
@@ -149,7 +149,7 @@
   flex: 0 0 26rem;
   scroll-snap-align: start;
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 1.2rem;
   padding: 2.4rem;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
@@ -161,7 +161,7 @@
 .skillReasonTextarea {
   width: 100%;
   padding: 1.2rem;
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 0.6rem;
   font-size: 1.4rem;
   color: var(--text-primary);
@@ -176,5 +176,5 @@
 .skillReasonTextarea:focus {
   outline: none;
   border-color: var(--action-primary);
-  box-shadow: 0 0 0 3px rgba(250, 80, 46, 0.1);
+  box-shadow: 0 0 0 0.3rem rgba(250, 80, 46, 0.1);
 }

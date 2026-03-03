@@ -1,9 +1,9 @@
 .footer {
     background-color: var(--bg-main);
-    padding: 20px;
+    padding: 2rem;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 118px;
+    height: 11.8rem;
 }

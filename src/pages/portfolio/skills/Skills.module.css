@@ -45,7 +45,14 @@
   gap: 0.8rem;
 }
 
-.skillChip{
+@media (max-width: 480px) {
+  .skillCategory{
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.language{
   background-color: var(--color-terracotta);
   color: var(--color-white);
   padding: 0.5rem 1.6rem;
@@ -53,34 +60,27 @@
   font-size: 1.4rem;
 }
 
-/* 기본 칩 스타일 (공통) */
 .skillChip {
   display: inline-block;
-  padding: 4px 12px;
+  padding: 4px 1.2rem;
   border-radius: 999px;
   font-size: 1.4rem;
   font-weight: 600;
   margin: 4px;
 }
 
-/* 카테고리별 색상 부여 */
 .frontend {
-  background-color: #e0f2fe; /* 옅은 파란색 */
-  color: #0369a1;            /* 진한 파란색 */
+  background-color: #e0f2fe; 
+  color: #0369a1;            
 }
 
 .backend {
-  background-color: #dcfce7; /* 옅은 초록색 */
-  color: #15803d;            /* 진한 초록색 */
+  background-color: #dcfce7; 
+  color: #15803d;            
 }
 
 .devops {
-  background-color: #f3e8ff; /* 옅은 보라색 */
-  color: #7e22ce;            /* 진한 보라색 */
+  background-color: #f3e8ff; 
+  color: #7e22ce;            
 }
 
-/* 매칭되는 카테고리가 없을 때의 기본색 */
-.defaultCategory {
-  background-color: #f3f4f6;
-  color: #4b5563;
-}

@@ -1,14 +1,3 @@
- @media (max-width: 768px) {
-  .connectInfo {
-    grid-template-columns: 1fr; 
-    gap: 1rem; 
-    font-size: 1.2rem;
-  }
-
-
-}
-
-
 .container {
   /* max-width: 800px; */
   height: 100vh;
@@ -30,7 +19,7 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/imgs/img_intro_background.jpg') no-repeat center / cover;
-  background-color: lightgray; 
+  background-color: lightgray;
   min-height: 400px;
 }
 
@@ -59,23 +48,23 @@
 
 .portrait {
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
+  width: 15rem;
+  height: 15rem;
   object-fit: cover;
 }
 
-.about{
+.about {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  /* max-width: 80rem; */
+  max-width: 80rem;
   justify-content: start;
-  gap: 20px;
+  gap: 2rem;
 }
 
-.nav{
+.nav {
   display: flex;
-  gap: 20px;
+  gap: 2rem;
   justify-content: start;
   align-items: center;
 }
@@ -86,7 +75,7 @@
   text-align: center;
 }
 
-.button{
+.button {
   width: 2.4rem;
   height: 2.4rem;
   display: flex;
@@ -94,36 +83,78 @@
   align-items: center;
 }
 
-.button img{
+.button img {
   width: 2.4rem;
   height: 2.4rem;
 }
-
-
 
 .connectInfo {
   display: grid;
   text-align: left;
   line-height: 1.6;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 1.5rem clamp(1rem, 10vw, 13rem); 
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem clamp(1rem, 10vw, 13rem);
   margin-top: 1.6rem;
-  width: fit-content; 
+  width: fit-content;
   margin-left: 0;
   margin-right: auto;
 }
 
-.contactItem{
+@media (max-width: 768px) {
+  .connectInfo {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .intro{
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .title{
+    font-size: 2.4rem;
+  }
+
+  .description{
+    font-size: 1.6rem;
+  }
+
+  .myInfo{
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2.4rem;
+  }
+
+  .portrait{
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .connectInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+.contactItem {
   display: flex;
   align-items: center;
   gap: 1.2rem;
   font-size: 2.4rem;
 
-  justify-content: flex-start; 
-  white-space: nowrap; /* 줄바꿈 방지 */
+  justify-content: flex-start;
+  white-space: nowrap;
 }
 
-.contactItem img{
+.contactItem img {
   width: 2.4rem;
   height: 2.4rem;
   object-fit: contain;

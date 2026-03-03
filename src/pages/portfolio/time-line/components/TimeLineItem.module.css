@@ -6,7 +6,7 @@
   padding: 2.4rem;
   border-radius: 1.6rem;
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   box-shadow: 0 0.4rem 1.6rem rgba(0, 0, 0, 0.2);
 }
 
@@ -15,7 +15,7 @@
   height: 16rem;
   object-fit: cover;
   border-radius: 1.2rem;
-  border: 2px solid var(--border-light);
+  border: 0.2rem solid var(--border-light);
 }
 
 .info {

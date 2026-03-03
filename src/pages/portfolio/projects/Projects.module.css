@@ -33,7 +33,7 @@
    font-weight: 500;
    background-color: var(--bg-surface);
    color: var(--text-secondary);
-   border: 1px solid var(--border-base);
+   border: 0.1rem solid var(--border-base);
    transition: all 0.2s ease;
 }
 
@@ -48,4 +48,11 @@
   grid-template-columns: repeat(auto-fill, minmax(46rem, 1fr));
   gap: 2.4rem;
   width: 100%;
+}
+
+@media (max-width: 480px) {
+  .projectGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
 }

@@ -64,7 +64,7 @@
   flex: 0 0 24rem;
   scroll-snap-align: start;
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 1.2rem;
   padding: 2.4rem 3.2rem;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
@@ -90,8 +90,8 @@
   background-color: var(--action-primary);
   color: var(--bg-main);
   border-color: var(--action-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(250, 80, 46, 0.2);
+  transform: translateY(-0.2rem);
+  box-shadow: 0 4px 1.2rem rgba(250, 80, 46, 0.2);
 }
 
 .readmeContent {
@@ -189,7 +189,7 @@
   border-radius: 0.8rem;
   margin: 2.4rem 0;
   overflow-x: auto;
-  border: 1px solid var(--border-light);
+  border: 0.1rem solid var(--border-light);
 }
 
 .readmeContent pre code {
@@ -208,7 +208,7 @@
 
 .readmeContent th,
 .readmeContent td {
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   padding: 1.2rem 1.6rem;
   text-align: left;
 }

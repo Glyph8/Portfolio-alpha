@@ -40,7 +40,7 @@
   flex-wrap: wrap;
   gap: 3.2rem;
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
   border-radius: 1.2rem;
   padding: 2.4rem 3.2rem;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
@@ -86,12 +86,12 @@
   background-color: var(--bg-section-alt);
   padding: 0.6rem 1.4rem;
   border-radius: 2rem;
-  border: 1px solid var(--border-light);
+  border: 0.1rem solid var(--border-light);
   transition: transform 0.2s ease;
 }
 
 .techStacks li:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.2rem);
 }
 
 .projectOverview {
@@ -106,7 +106,7 @@
 .readme {
   width: 100%;
   padding-top: 3.2rem;
-  border-top: 2px dashed var(--border-light);
+  border-top: 0.2rem dashed var(--border-light);
   border-radius: 1.2rem;
   background-color: var(--bg-surface);
   padding: 2.4rem;
@@ -118,7 +118,7 @@
   gap: 1.2rem;
   margin-top: 6rem;
   padding-top: 2.4rem;
-  border-top: 1px solid var(--border-light);
+  border-top: 0.1rem solid var(--border-light);
 }
 
 .actions button {
@@ -134,7 +134,7 @@
 .actions button:first-child {
   background-color: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--border-base);
+  border: 0.1rem solid var(--border-base);
 }
 
 .actions button:first-child:hover {

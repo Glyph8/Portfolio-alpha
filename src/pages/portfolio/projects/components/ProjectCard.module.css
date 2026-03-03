@@ -1,9 +1,9 @@
 .card {
     position: relative;
     background-color: var(--bg-surface);
-    border: 1px solid var(--border-base);
+    border: 0.1rem solid var(--border-base);
     border-radius: 1.6rem;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -145,7 +145,7 @@
 .githubBtn {
     /* background-color: transparent; */
     background-color: var(--color-cream-100);
-    border: 1px solid var(--color-navy-900);
+    border: 0.1rem solid var(--color-navy-900);
     color: var(--color-navy-900);
     /* color: var(--color-slate-100); */
     font-weight: 500;
@@ -157,6 +157,6 @@
 
 .demoBtn:focus-visible,
 .githubBtn:focus-visible {
-    outline: 2px solid var(--color-navy-900);
-    outline-offset: 2px;
+    outline: 0.2rem solid var(--color-navy-900);
+    outline-offset: 0.2rem;
 }

@@ -52,7 +52,7 @@ export default function Skills() {
       <div className={styles.skillsContainer}>
 
         {
-          skillData.map((skillCategory) => (
+          skillData.filter(skillCategory => skillCategory.skills.length > 0).map((skillCategory) => (
             <div key={skillCategory.category} className={styles.skillCategory}>
               <img src={skillCategory.icons} alt="Skill Icon" className={styles.skillIcon} />
               <p className={styles.skillCategoryTitle}>{skillCategory.category}</p>
