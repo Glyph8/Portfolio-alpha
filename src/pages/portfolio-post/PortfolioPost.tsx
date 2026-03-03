@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import PortfolioLayout from "../portfolio-detail/layout/PortfolioLayout";
 import styles from "./PortfolioPost.module.css";
 import detailStyles from "../portfolio-detail/PortfolioDetail.module.css";
+import layoutStyles from "../portfolio-detail/layout/PortfolioLayout.module.css";
 import { useSkillReasonScroll } from "../portfolio-detail/hooks/use-skill-reason-scroll";
 
 export default function PortfolioPost() {
@@ -78,7 +79,7 @@ export default function PortfolioPost() {
           <ul>
             {skills.map((skill, index) => (
               <li key={skill.name}
-                className={activeIndex === index ? detailStyles.activeSkill : undefined}
+                className={activeIndex === index ? layoutStyles.activeSkill : undefined}
                 onClick={() => handleSkillClick(index)}
                 style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "0.4rem" }}
               >

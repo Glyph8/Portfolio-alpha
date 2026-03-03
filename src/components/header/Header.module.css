@@ -8,6 +8,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    gap: 1.6rem;
 }
 
 .logoutButton{
@@ -24,6 +27,12 @@
     /* color: var(--color-navy-900); */
     color: var(--text-primary);
     /* color: #fbf9e3; */
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.titleHidden {
+    transform: translateX(-150%);
+    opacity: 0;
 }
 
 .nav{
@@ -32,8 +41,78 @@
     flex-direction: row;
     justify-content: center;
     gap: 2rem;
+    transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
 .nav li a:hover{
     color: var(--color-terracotta);
+}
+
+.navToggle {
+    display: none;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: none;
+    font-size: 2.4rem;
+    cursor: pointer;
+}
+
+.navToggleIcon {
+    display: inline-block;
+    transition: transform 0.35s ease;
+    transform: rotate(180deg);
+}
+
+.navToggleIconOpen {
+    transform: rotate(0deg);
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2.4rem;
+    }
+
+    .header {
+        justify-content: flex-start;
+    }
+
+    .nav{
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translate(110%, -50%);
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        opacity: 0;
+        pointer-events: none;
+        white-space: nowrap;
+        font-size: 1.4rem;
+        gap: 0.8rem;
+    }
+
+    .navOpen {
+        transform: translate(0, -50%);
+        opacity: 1;
+        pointer-events: auto;
+        right : 5.6rem;
+    }
+
+    .nav li {
+        background: var(--bg-surface);
+        padding: 0.4rem 1.6rem;
+        border-radius: 999rem;
+        box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.2);
+    }
+
+    .navToggle {
+        display: block;
+        margin-left: auto;
+        z-index: 2;
+    }
+
+    .navOpenState .navToggle {
+        order: 2;
+    }
 }

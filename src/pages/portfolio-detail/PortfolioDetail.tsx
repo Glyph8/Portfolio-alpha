@@ -10,6 +10,7 @@ import rehypeRaw from "rehype-raw";
 import { useEffect, useRef } from "react";
 import { useSkillReasonScroll } from "./hooks/use-skill-reason-scroll";
 import PortfolioLayout from "./layout/PortfolioLayout";
+import layoutStyles from "./layout/PortfolioLayout.module.css";
 
 export default function PortfolioDetail() {
 
@@ -62,7 +63,7 @@ export default function PortfolioDetail() {
         <ul>
           {project?.project_skills.map((ps, index) => (
             <li key={ps.skills.name}
-              className={activeIndex === index ? styles.activeSkill : undefined}
+              className={activeIndex === index ? layoutStyles.activeSkill : undefined}
               onClick={() => handleSkillClick(index)}
               style={{ cursor: "pointer" }}
             >{ps.skills.name}</li>
@@ -117,13 +118,14 @@ export default function PortfolioDetail() {
 
       actionSlot={
         <>
-          <button onClick={handleBack}>
+          <button className={styles.backBtn}
+          onClick={handleBack}>
             목록으로
           </button>
-          <button>
+          <button className={styles.editBtn}>
             수정하기
           </button>
-          <button>
+          <button className={styles.deleteBtn}>
             삭제하기
           </button>
         </>
