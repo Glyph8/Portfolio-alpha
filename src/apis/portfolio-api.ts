@@ -39,5 +39,23 @@ export const createProject = async (projectData: ProjectInsertPayload) => {
     throw new Error(error.message);
   }
 
-  return data; 
+  return data;
+};
+
+export interface SkillOption {
+  skill_id: number;
+  skill_name: string;
+  category_id: number;
+  category_name: string;
+}
+
+export const getAllSkills = async (): Promise<SkillOption[]> => {
+  const { data, error } = await supabase.rpc('get_all_skills');
+
+  if (error) {
+    console.error("스킬 목록 불러오기 실패:", error.message);
+    throw new Error(error.message);
+  }
+
+  return data;
 };

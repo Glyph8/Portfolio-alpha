@@ -10,7 +10,8 @@ import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import { useNavigate } from "react-router-dom";
 import { createProject } from "../../apis/portfolio-api";
-import { useProjects } from "../portfolio/projects/hooks/use-projects";
+import { useSkillOptions } from "./hooks/use-skill-option";
+import { CATEGORY_MAP } from "./constants";
 
 const CATEGORY_OPTIONS = ["Frontend", "Backend", "DevOps", "Mobile"] as const;
 
@@ -18,6 +19,7 @@ interface Skill {
   isNew: boolean;
   name: string;
   category: string;
+  category_id: number;
   skill_id?: number;
   skill_reason: string;
 }
@@ -30,11 +32,13 @@ export default function PortfolioPost() {
   const [contribution, setContribution] = useState("");
   const [slogan, setSlogan] = useState("");
   const [introduction, setIntroduction] = useState("");
-  // const [readme, setReadme] = useState("");
   const [skills, setSkills] = useState<Skill[]>([]);
 
   const [newSkillName, setNewSkillName] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
+
+
+  const { skillOptions } = useSkillOptions();
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,23 +46,6 @@ export default function PortfolioPost() {
     maskState, activeIndex, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
   } = useSkillReasonScroll(scrollRef);
 
-  const { projects } = useProjects();
-
-  const skillSuggestions = useMemo(() => {
-    if (!projects) return [];
-    const uniqueSkills = new Set<string>();
-    projects.forEach((project) => {
-      project.project_skills?.forEach((ps) => {
-        const name = ps?.skills?.name;
-        if (name) {
-          uniqueSkills.add(name);
-        }
-      });
-    });
-    return Array.from(uniqueSkills).sort((a, b) => a.localeCompare(b));
-  }, [projects]);
-
-  
   const editor = useCreateBlockNote({
     initialContent: [
       {
@@ -86,19 +73,51 @@ export default function PortfolioPost() {
   }, [skills]);
 
   const handleAddSkill = () => {
-    if (!newSkillName.trim() || !newCategoryName) return;
+    if (!newSkillName.trim()) return;
 
-    // project 스킬 제안에 있는 스킬인 경우, 해당 skill id 가져옴 + isNew False로 저장
-    // 그렇지 않은 경우 isNew true + skill id null 처리
-    const existedSkill = skillSuggestions.find(s => s.toLowerCase() === newSkillName.trim().toLowerCase());
-    if(existedSkill.name === newSkillName.trim()) {
-      setSkills((prev) => [...prev, { name: existedSkill.name, category: newCategoryName, skill_reason: "", isNew: false, skill_id: existedSkill.id }]);
+    const matched = skillOptions.find(
+      (s) => s.skill_name.toLowerCase() === newSkillName.trim().toLowerCase()
+    );
+
+    if (matched) {
+      setSkills((prev) => [...prev, {
+        name: matched.skill_name,
+        category: matched.category_name,
+        category_id: matched.category_id,
+        skill_reason: "",
+        isNew: false,
+        skill_id: matched.skill_id,
+      }]);
     } else {
-      setSkills((prev) => [...prev, { name: newSkillName.trim(), category: newCategoryName, skill_reason: "", isNew: true }]);
+      if (!newCategoryName) return;
+      setSkills((prev) => [...prev, {
+        name: newSkillName.trim(),
+        category: newCategoryName,
+        category_id: CATEGORY_MAP[newCategoryName as keyof typeof CATEGORY_MAP],
+        skill_reason: "",
+        isNew: true,
+      }]);
     }
 
     setNewSkillName("");
     setNewCategoryName("");
+  };
+
+  const handleSkillNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setNewSkillName(value);
+
+    const matched = skillOptions.find(
+      (s) => s.skill_name.toLowerCase() === value.toLowerCase()
+    );
+
+    if (matched) {
+      setTimeout(() => {
+        setNewCategoryName(matched.category_name);
+      }, 0);
+    } else {
+      setNewCategoryName("");
+    }
   };
 
   const handleRemoveSkill = (index: number) => {
@@ -120,14 +139,15 @@ export default function PortfolioPost() {
       duration,
       contribution,
       slogan,
-      overview:introduction,
+      overview: introduction,
       introduction,
       readme: await editor.blocksToMarkdownLossy(editor.document),
       project_skills: skills.map(skill => ({
-        isNew : false,
+        isNew: skill.isNew,
         name: skill.name,
-        category: skill.category,
-        skill_reason: skill.skill_reason
+        category_id: skill.category_id,
+        skill_reason: skill.skill_reason,
+        ...(skill.skill_id !== undefined && { skill_id: skill.skill_id }),
       }))
     };
 
@@ -184,13 +204,13 @@ export default function PortfolioPost() {
             ))}
           </ul>
           <div className={styles.skillInputWrapper}>
-            <div style={{display:'flex', flexDirection: 'column', gap:'0.8rem'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
               <input
                 type="text"
                 className={styles.inputElement}
                 placeholder="기술 스택 입력 (ex: React)"
                 value={newSkillName}
-                onChange={(e) => setNewSkillName(e.target.value)}
+                onChange={handleSkillNameChange}
                 list="skill-suggestions"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && newSkillName.trim() && newCategoryName) {
@@ -200,8 +220,8 @@ export default function PortfolioPost() {
                 }}
               />
               <datalist id="skill-suggestions">
-                {skillSuggestions.map((skill) => (
-                  <option key={skill} value={skill} />
+                {skillOptions.map((skill) => (
+                  <option key={skill.skill_id} value={skill.skill_name} />
                 ))}
               </datalist>
 
@@ -256,7 +276,7 @@ export default function PortfolioPost() {
               {skills.map((skill, index) => (
                 <div className={styles.techStacksCard} key={skill.name}>
                   <div className={detailStyles.techStacksCardTitle}>
-                    {skill.name} <span style={{fontSize:"1.6rem", color:"var(--color-slate-400)"}}>{skill.category}</span>
+                    {skill.name} <span style={{ fontSize: "1.6rem", color: "var(--color-slate-400)" }}>{skill.category}</span>
                   </div>
                   <textarea
                     className={styles.skillReasonTextarea}
