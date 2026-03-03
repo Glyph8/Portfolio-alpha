@@ -107,7 +107,7 @@ export default function PortfolioPost() {
             <input
               type="text"
               className={`${styles.inputElement} ${styles.sloganInput}`}
-              placeholder="프로젝트 짧은 슬로건을 입력하세요"
+              placeholder="짧은 프로젝트 슬로건을 입력하세요"
               value={slogan}
               onChange={(e) => setSlogan(e.target.value)}
             />

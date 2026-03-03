@@ -1,6 +1,7 @@
 
 .container {
   max-width: 80rem;
+
   margin: 0 auto;
   padding: 4rem 2rem;
   animation: fadeIn 0.4s ease-out;
@@ -183,7 +184,7 @@
 .techStacksCard{
   flex: 0 0 24rem;
   scroll-snap-align: start;
-  /* min-width: 24rem; */
+  min-width: 24rem;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-base);
   border-radius: 1.2rem;
@@ -262,12 +263,14 @@
    README react markdown 스타일링
    ========================================== */
 .readme {
+  width: 100%;
   color: var(--text-primary);
   line-height: 1.75;
   font-size: 1.6rem;
   word-break: keep-all;
   padding-top: 3.2rem;
   border-top: 2px dashed var(--border-light); 
+  border-radius: 1.2rem;
   white-space: pre-wrap;
   background-color: var(--bg-surface);
   padding: 2.4rem;
