@@ -18,6 +18,16 @@
   font-family: inherit;
 }
 
+.selectElement {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-primary) 50%),
+    linear-gradient(135deg, var(--text-primary) 50%, transparent 50%);
+  background-position: calc(100% - 2.4rem) calc(50% - 0.2rem), calc(100% - 1.8rem) calc(50% - 0.2rem);
+  background-size: 0.6rem 0.6rem, 0.6rem 0.6rem;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
 .inputElement:focus {
   outline: none;
   border-color: var(--action-primary);

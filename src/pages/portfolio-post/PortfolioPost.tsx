@@ -1,15 +1,26 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import PortfolioLayout from "../portfolio-detail/layout/PortfolioLayout";
 import styles from "./PortfolioPost.module.css";
 import detailStyles from "../portfolio-detail/PortfolioDetail.module.css";
 import layoutStyles from "../portfolio-detail/layout/PortfolioLayout.module.css";
 import { useSkillReasonScroll } from "../portfolio-detail/hooks/use-skill-reason-scroll";
-import ReactMarkdown from "react-markdown";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import { useNavigate } from "react-router-dom";
+import { createProject } from "../../apis/portfolio-api";
+import { useProjects } from "../portfolio/projects/hooks/use-projects";
+
+const CATEGORY_OPTIONS = ["Frontend", "Backend", "DevOps", "Mobile"] as const;
+
+interface Skill {
+  isNew: boolean;
+  name: string;
+  category: string;
+  skill_id?: number;
+  skill_reason: string;
+}
 
 export default function PortfolioPost() {
   const navigate = useNavigate();
@@ -20,9 +31,10 @@ export default function PortfolioPost() {
   const [slogan, setSlogan] = useState("");
   const [introduction, setIntroduction] = useState("");
   // const [readme, setReadme] = useState("");
-  const [skills, setSkills] = useState<{ name: string; skill_reason: string }[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
 
   const [newSkillName, setNewSkillName] = useState("");
+  const [newCategoryName, setNewCategoryName] = useState("");
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -30,8 +42,25 @@ export default function PortfolioPost() {
     maskState, activeIndex, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
   } = useSkillReasonScroll(scrollRef);
 
+  const { projects } = useProjects();
+
+  const skillSuggestions = useMemo(() => {
+    if (!projects) return [];
+    const uniqueSkills = new Set<string>();
+    projects.forEach((project) => {
+      project.project_skills?.forEach((ps) => {
+        const name = ps?.skills?.name;
+        if (name) {
+          uniqueSkills.add(name);
+        }
+      });
+    });
+    return Array.from(uniqueSkills).sort((a, b) => a.localeCompare(b));
+  }, [projects]);
+
+  
   const editor = useCreateBlockNote({
-    initialContent:[
+    initialContent: [
       {
         type: "heading",
         content: "프로젝트 이름",
@@ -57,9 +86,19 @@ export default function PortfolioPost() {
   }, [skills]);
 
   const handleAddSkill = () => {
-    if (!newSkillName.trim()) return;
-    setSkills([...skills, { name: newSkillName.trim(), skill_reason: "" }]);
+    if (!newSkillName.trim() || !newCategoryName) return;
+
+    // project 스킬 제안에 있는 스킬인 경우, 해당 skill id 가져옴 + isNew False로 저장
+    // 그렇지 않은 경우 isNew true + skill id null 처리
+    const existedSkill = skillSuggestions.find(s => s.toLowerCase() === newSkillName.trim().toLowerCase());
+    if(existedSkill.name === newSkillName.trim()) {
+      setSkills((prev) => [...prev, { name: existedSkill.name, category: newCategoryName, skill_reason: "", isNew: false, skill_id: existedSkill.id }]);
+    } else {
+      setSkills((prev) => [...prev, { name: newSkillName.trim(), category: newCategoryName, skill_reason: "", isNew: true }]);
+    }
+
     setNewSkillName("");
+    setNewCategoryName("");
   };
 
   const handleRemoveSkill = (index: number) => {
@@ -73,8 +112,26 @@ export default function PortfolioPost() {
   };
 
   const handleSubmit = async () => {
-    const markdownContent = await editor.blocksToMarkdownLossy(editor.document);
-    console.log("서버로 전송할 마크다운 데이터:", markdownContent);
+
+    const projectData = {
+      title,
+      slug: title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, ''),
+      role,
+      duration,
+      contribution,
+      slogan,
+      overview:introduction,
+      introduction,
+      readme: await editor.blocksToMarkdownLossy(editor.document),
+      project_skills: skills.map(skill => ({
+        isNew : false,
+        name: skill.name,
+        category: skill.category,
+        skill_reason: skill.skill_reason
+      }))
+    };
+
+    createProject(projectData);
   };
 
   const handleCancelBtn = () => {
@@ -113,7 +170,7 @@ export default function PortfolioPost() {
 
       skillsSlot={
         <div className={styles.skillsFormContainer}>
-          <h2>사용 기술 스택 (추가)</h2>
+          <h2>사용 기술 스택 & 카테고리 (추가)</h2>
           <ul>
             {skills.map((skill, index) => (
               <li key={skill.name}
@@ -127,14 +184,39 @@ export default function PortfolioPost() {
             ))}
           </ul>
           <div className={styles.skillInputWrapper}>
-            <input
-              type="text"
-              className={styles.inputElement}
-              placeholder="기술 스택 입력 (ex: React)"
-              value={newSkillName}
-              onChange={(e) => setNewSkillName(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter') handleAddSkill(); }}
-            />
+            <div style={{display:'flex', flexDirection: 'column', gap:'0.8rem'}}>
+              <input
+                type="text"
+                className={styles.inputElement}
+                placeholder="기술 스택 입력 (ex: React)"
+                value={newSkillName}
+                onChange={(e) => setNewSkillName(e.target.value)}
+                list="skill-suggestions"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && newSkillName.trim() && newCategoryName) {
+                    e.preventDefault();
+                    handleAddSkill();
+                  }
+                }}
+              />
+              <datalist id="skill-suggestions">
+                {skillSuggestions.map((skill) => (
+                  <option key={skill} value={skill} />
+                ))}
+              </datalist>
+
+              <select
+                className={`${styles.inputElement} ${styles.selectElement}`}
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+              >
+                <option value="">기술 카테고리 선택</option>
+                {CATEGORY_OPTIONS.map((category) => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+
             <button type="button" className={styles.addBtn} onClick={handleAddSkill}>추가</button>
           </div>
         </div>
@@ -174,7 +256,7 @@ export default function PortfolioPost() {
               {skills.map((skill, index) => (
                 <div className={styles.techStacksCard} key={skill.name}>
                   <div className={detailStyles.techStacksCardTitle}>
-                    {skill.name}
+                    {skill.name} <span style={{fontSize:"1.6rem", color:"var(--color-slate-400)"}}>{skill.category}</span>
                   </div>
                   <textarea
                     className={styles.skillReasonTextarea}
@@ -196,10 +278,9 @@ export default function PortfolioPost() {
           <p style={{ fontSize: '1.4rem', color: 'var(--text-secondary)' }}>
             노션처럼 편하게 작성하세요. `/` 키를 누르면 제목, 리스트, 코드 블록 등을 추가할 수 있습니다.
           </p>
-           
-          {/* 4. 기존의 ReactMarkdown과 textarea를 지우고 BlockNoteView를 넣습니다. */}
+
           <div className={styles.editorWrapper} style={{ border: "1px solid var(--border-color)", borderRadius: "8px", padding: "1rem" }}>
-            <BlockNoteView editor={editor} theme="light" /> {/* 다크모드라면 theme="dark" 로 설정 */}
+            <BlockNoteView editor={editor} theme="light" />
           </div>
         </div>
       }
@@ -207,11 +288,11 @@ export default function PortfolioPost() {
       actionSlot={
         <>
           <button type="button" onClick={handleCancelBtn}
-          className={styles.cancelBtn}>
+            className={styles.cancelBtn}>
             작성 취소
           </button>
-          <button type="button" onClick={handleSubmit} 
-          className={styles.submitBtn}>
+          <button type="button" onClick={handleSubmit}
+            className={styles.submitBtn}>
             포트폴리오 게시
           </button>
         </>

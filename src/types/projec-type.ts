@@ -9,6 +9,7 @@ export interface RawSkill {
   category_skills: RawCategorySkill[];
 }
 export interface RawProjectSkill {
+  skill_id: number;
   skill_reason: string | null;
   skills: RawSkill;
 }
@@ -41,3 +42,24 @@ export interface ProjectCardProps {
   projectUrl: string;
   githubUrl: string;
 }
+
+export interface ProjectInsertPayload {
+  title: string;
+  slogan: string;
+  introduction: string;
+  role: string;
+  duration: string;
+  contribution: string;
+  overview: string;
+  img_url?: string;
+  readme: string;
+  github_url?: string;
+  project_url?: string;
+  project_skills: {
+    isNew: boolean;
+    skill_id?: number;
+    name: string;
+    category_id?: number;
+    skill_reason: string;
+  }[];
+} 
