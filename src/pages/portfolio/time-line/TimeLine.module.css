@@ -15,3 +15,9 @@
   letter-spacing: -0.02em;
 }
 
+.timeline{
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
