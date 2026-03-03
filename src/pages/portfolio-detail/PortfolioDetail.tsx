@@ -108,9 +108,11 @@ export default function PortfolioDetail() {
       }
 
       readmeSlot={
-        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-          {project?.readme || README_CONTENT}
-        </ReactMarkdown>
+        <div className={styles.readmeContent}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+            {project?.readme || README_CONTENT}
+          </ReactMarkdown>
+        </div>
       }
 
       actionSlot={

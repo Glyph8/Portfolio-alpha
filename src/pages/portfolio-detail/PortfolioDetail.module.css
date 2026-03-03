@@ -1,157 +1,39 @@
-
-.container {
-  max-width: 80rem;
-
-  margin: 0 auto;
-  padding: 4rem 2rem;
-  animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(1rem); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.title {
-  font-size: 3.6rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 3.2rem;
-  line-height: 1.3;
-  letter-spacing: -0.02rem;
-  
-}
-
-.projectHeader{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 2.5rem;
-  margin-bottom: 2.4rem;
-}
-
-@media (max-width: 600px) {
-  .projectHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-.projectInfo {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 3.2rem;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-base);
-  border-radius: 1.2rem;
-  padding: 2.4rem 3.2rem;
-  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05); 
-}
-
-.projectInfoItem,
-.techStacks {
-  flex: 1;
-  min-width: 25rem; 
-}
-
-.projectInfoItem h2,
-.techStacks h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  margin-top: 0;
-  margin-bottom: 1.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.projectInfoItem p {
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.techStacks ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.techStacks li {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  background-color: var(--bg-section-alt);
-  padding: 0.6rem 1.4rem;
-  border-radius: 2rem; 
-  border: 1px solid var(--border-light);
-  transition: transform 0.2s ease;
-}
-
-.techStacks li:hover {
-  transform: translateY(-2px); 
-}
-
-.techStacks li.activeSkill {
-  background-color: var(--action-primary);
-  color: var(--bg-main);
-  border-color: var(--action-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(250, 80, 46, 0.2);
-}
-
-.projectOverview{
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  justify-content: space-between;
-  flex: 1 1 auto;
-  min-width: 0; 
-}
-
-.projectSlogan{
+.projectSlogan {
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.3;
 }
 
-.projectOverviewContent{
+.projectOverviewContent {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
 }
 
-.projectIntroduction{
+.projectIntroduction {
   font-size: 1.5rem;
   color: var(--text-primary);
   margin-bottom: 1rem;
   font-weight: 500;
 }
 
-.techStacksContainer{
-  /* width: 100%; */
-   display: flex;
-  flex-wrap: nowrap;
-  gap: 1.2rem;
-  overflow-x: auto;
-  width: 100%;
-  padding-bottom: 0.4rem;
-  scroll-snap-type: x proximity;
+.techStacksContainer {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   gap: 1rem;
   overflow-x: scroll;
-  -ms-overflow-style: none; /* IE 및 Legacy Edge 용 */
-  scrollbar-width: none; /* Firefox 용 */
+  padding-bottom: 0.4rem;
   padding-right: 2.4rem;
- 
+  scroll-snap-type: x proximity;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   cursor: grab;
+}
+
+.techStacksContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .techStacksContainer:active {
@@ -160,41 +42,36 @@
 
 .techStacksContainer::after {
   content: '';
-  flex: 0 0 8%; /* 마스크로 가려지는 영역(15%)만큼 더 밀어줌 */
+  flex: 0 0 8%;
 }
 
-/* 1️⃣ 맨 왼쪽일 때 (오른쪽만 투명) */
 .maskRight {
   mask-image: linear-gradient(to right, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, black 92%, transparent 100%);
 }
 
-/* 2️⃣ 중간을 스크롤 중일 때 (양쪽 다 투명) */
 .maskBoth {
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-/* 3️⃣ 맨 오른쪽 끝일 때 (왼쪽만 투명) */
 .maskLeft {
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
 }
 
-.techStacksCard{
+.techStacksCard {
   flex: 0 0 24rem;
   scroll-snap-align: start;
-  min-width: 24rem;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-base);
   border-radius: 1.2rem;
   padding: 2.4rem 3.2rem;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
-
   user-select: none;
 }
 
-.techStacksCardTitle{
+.techStacksCardTitle {
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -202,81 +79,30 @@
   margin-bottom: 1.6rem;
 }
 
-.techStacksCardDescription{
+.techStacksCardDescription {
   font-size: 1.5rem;
   color: var(--text-primary);
   margin-bottom: 1rem;
   font-weight: 500;
 }
 
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1.2rem;
-  margin-top: 6rem;
-  padding-top: 2.4rem;
-  border-top: 1px solid var(--border-light);
-}
-
-.actions button {
-  padding: 1rem 2rem;
-  border-radius: 0.6rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.actions button:first-child {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-base);
-}
-
-.actions button:first-child:hover {
-  background-color: var(--bg-section-alt);
-}
-
-.actions button:nth-child(2) {
+.activeSkill {
   background-color: var(--action-primary);
   color: var(--bg-main);
-  border: none;
+  border-color: var(--action-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(250, 80, 46, 0.2);
 }
 
-.actions button:nth-child(2):hover {
-  background-color: var(--action-primary-hover);
-}
-
-.actions button:last-child {
-  background-color: var(--color-terracotta-dark);
-  color: var(--bg-main);
-  border: none;
-}
-
-.actions button:last-child:hover {
-  background-color: var(--color-error);
-}
-
-
-/* ==========================================
-   README react markdown 스타일링
-   ========================================== */
-.readme {
-  width: 100%;
+.readmeContent {
   color: var(--text-primary);
   line-height: 1.75;
   font-size: 1.6rem;
   word-break: keep-all;
-  padding-top: 3.2rem;
-  border-top: 2px dashed var(--border-light); 
-  border-radius: 1.2rem;
   white-space: pre-wrap;
-  background-color: var(--bg-surface);
-  padding: 2.4rem;
 }
 
-.readme img {
+.readmeContent img {
   max-width: 100%;
   height: auto;
   border-radius: 0.8rem;
@@ -284,31 +110,61 @@
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
 }
 
-
-.readme h1, .readme h2, .readme h3 {
+.readmeContent h1,
+.readmeContent h2,
+.readmeContent h3 {
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.3;
 }
 
-.readme h1 { font-size: 2.8rem; margin: 4rem 0 1.6rem; letter-spacing: -0.02em; }
-.readme h2 { font-size: 2.2rem; margin: 3.2rem 0 1.4rem; }
-.readme h3 { font-size: 1.8rem; margin: 2.4rem 0 1.2rem; }
+.readmeContent h1 {
+  font-size: 2.8rem;
+  margin: 4rem 0 1.6rem;
+  letter-spacing: -0.02em;
+}
 
-.readme p { margin-bottom: 1.6rem; }
-.readme strong { font-weight: 700; color: var(--text-primary); }
+.readmeContent h2 {
+  font-size: 2.2rem;
+  margin: 3.2rem 0 1.4rem;
+}
 
-.readme a {
-  color: var(--text-accent, #2563eb); 
+.readmeContent h3 {
+  font-size: 1.8rem;
+  margin: 2.4rem 0 1.2rem;
+}
+
+.readmeContent p {
+  margin-bottom: 1.6rem;
+}
+
+.readmeContent strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.readmeContent a {
+  color: var(--text-accent, #2563eb);
   text-decoration: none;
   font-weight: 500;
 }
-.readme a:hover { text-decoration: underline; }
 
-.readme ul, .readme ol { margin: 1.6rem 0; padding-left: 2.4rem; }
-.readme li { margin-bottom: 0.8rem; line-height: 1.7; }
+.readmeContent a:hover {
+  text-decoration: underline;
+}
 
-.readme blockquote {
+.readmeContent ul,
+.readmeContent ol {
+  margin: 1.6rem 0;
+  padding-left: 2.4rem;
+}
+
+.readmeContent li {
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
+}
+
+.readmeContent blockquote {
   margin: 2.4rem 0;
   padding: 0.8rem 1.6rem;
   border-left: 4px solid var(--border-blockquote, #d97757);
@@ -317,7 +173,8 @@
   font-style: italic;
 }
 
-.readme p code, .readme li code {
+.readmeContent p code,
+.readmeContent li code {
   font-family: 'Fira Code', 'Pretendard Mono', monospace;
   background-color: var(--bg-code-inline, rgba(128, 128, 128, 0.1));
   padding: 0.2rem 0.6rem;
@@ -326,7 +183,7 @@
   color: var(--text-primary);
 }
 
-.readme pre {
+.readmeContent pre {
   background-color: var(--bg-code-block, var(--color-slate-900));
   padding: 1.6rem;
   border-radius: 0.8rem;
@@ -335,34 +192,33 @@
   border: 1px solid var(--border-light);
 }
 
-.readme pre code {
+.readmeContent pre code {
   background-color: transparent;
-  color: var(--color-cream-100); /* 다크한 배경 위에서는 밝은 글씨 */
+  color: var(--color-cream-100);
   padding: 0;
   font-size: 1.4rem;
 }
 
-.readme table {
+.readmeContent table {
   width: 100%;
-  border-collapse: collapse; /* 테두리 두 줄 되는 것 방지 */
+  border-collapse: collapse;
   margin: 2.4rem 0;
   font-size: 1.5rem;
 }
 
-.readme th,
-.readme td {
+.readmeContent th,
+.readmeContent td {
   border: 1px solid var(--border-base);
   padding: 1.2rem 1.6rem;
-  text-align: left; /* 기본 좌측 정렬 */
+  text-align: left;
 }
 
-.readme th {
-  background-color: var(--bg-section-alt); /* 헤더 배경색 */
+.readmeContent th {
+  background-color: var(--bg-section-alt);
   font-weight: 700;
   color: var(--text-primary);
 }
 
-/* 데이터가 많을 때 읽기 편하도록 짝수 줄만 배경색을 살짝 다르게 줍니다 (얼룩말 패턴) */
-.readme tr:nth-child(even) {
+.readmeContent tr:nth-child(even) {
   background-color: var(--bg-surface);
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "../PortfolioDetail.module.css";
+import styles from "./PortfolioLayout.module.css";
 
 interface ProjectLayoutProps {
     titleSlot: ReactNode;
