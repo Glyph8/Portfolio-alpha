@@ -43,7 +43,7 @@ html::-webkit-scrollbar {
 
   /* 🚨 상태 컬러 (에러/성공) */
   --color-error: #ef4444; /* 유효성 검사 실패 */
-  --color-success: #10b981; /* 폼 제출 성공 등 */
+  --color-success: #102cb9; /* 폼 제출 성공 등 */
 
   /* ==========================================
      2. 2차 토큰 (Semantic) - Dark Theme

@@ -45,6 +45,7 @@
 
 .textareaElement {
   width: 100%;
+  height: 100%;
   padding: 1.6rem;
   border: 0.1rem solid var(--border-base);
   border-radius: 0.8rem;
@@ -56,6 +57,8 @@
   transition: all 0.2s ease;
   font-family: inherit;
   line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-base) transparent;
 }
 
 .textareaElement:focus {
@@ -68,6 +71,8 @@
   min-height: 60rem;
   font-family: 'Fira Code', 'Pretendard Mono', monospace;
   background-color: var(--bg-surface);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-base) transparent;
 }
 
 .formGroup {
@@ -156,6 +161,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-base) transparent;
 }
 
 .skillReasonTextarea {
@@ -177,4 +184,57 @@
   outline: none;
   border-color: var(--action-primary);
   box-shadow: 0 0 0 0.3rem rgba(250, 80, 46, 0.1);
+}
+
+.editorWrapper {
+  width: 100%;
+  min-height: 40rem;
+  height: 100%;
+  background-color: var(--color-slate-200);
+}
+
+.editorWrapper :global(.bn-container){
+  height: 100%;
+  --bn-colors-editor-background: transparent;
+  --bn-colors-editor-text: var(--color-slate-900);
+  font-size: 1.6rem; 
+  font-family: 'Pretendard', sans-serif;
+}
+
+.editorWrapper :global(.bn-block-content[data-content-type="codeBlock"]) {
+  font-size: 1.4rem; 
+}
+
+.cancelBtn {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 0.1rem solid var(--border-base);
+    padding: 1rem 2rem;
+    border-radius: 0.6rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+    background-color: var(--bg-section-alt);
+}
+
+.submitBtn {
+    background-color: var(--action-primary);
+    color: var(--bg-main);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.6rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.submitBtn:hover {
+    background-color: var(--action-primary-hover);
 }
