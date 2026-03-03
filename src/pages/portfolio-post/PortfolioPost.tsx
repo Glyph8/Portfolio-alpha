@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import PortfolioLayout from "../portfolio-detail/layout/PortfolioLayout";
 import styles from "./PortfolioPost.module.css";
 import detailStyles from "../portfolio-detail/PortfolioDetail.module.css";
@@ -8,24 +8,39 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
-import { useNavigate } from "react-router-dom";
-import { createProject } from "../../apis/portfolio-api";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { createProject, updateProject } from "../../apis/portfolio-api";
 import { useSkillOptions } from "./hooks/use-skill-option";
-import { CATEGORY_MAP } from "./constants";
-
-const CATEGORY_OPTIONS = ["Frontend", "Backend", "DevOps", "Mobile"] as const;
+import { CATEGORY_MAP, CATEGORY_OPTIONS } from "./constants";
+import { useProjects } from "../portfolio/projects/hooks/use-projects";
+import Loading from "../../components/loading/Loading";
+import NotFound from "../../components/error/NotFound";
 
 interface Skill {
   isNew: boolean;
   name: string;
   category: string;
-  category_id: number;
+  category_id?: number;
   skill_id?: number;
   skill_reason: string;
 }
 
+
 export default function PortfolioPost() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const location = useLocation();
+  const projectId = id ? Number(id) : undefined;
+  const locationState = location.state as { projectId?: number } | null;
+  const derivedProjectId = projectId ?? locationState?.projectId;
+  const resolvedProjectId = typeof derivedProjectId === "number" ? derivedProjectId : undefined;
+  const isEditMode = resolvedProjectId !== undefined;
+
+  const { projects, isLoading: isProjectsLoading } = useProjects();
+  const targetProject = isEditMode
+    ? projects?.find((p) => p.project_id === resolvedProjectId)
+    : undefined;
+
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
   const [duration, setDuration] = useState("");
@@ -33,6 +48,8 @@ export default function PortfolioPost() {
   const [slogan, setSlogan] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [isFormInitialized, setIsFormInitialized] = useState(!isEditMode);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [newSkillName, setNewSkillName] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -69,8 +86,59 @@ export default function PortfolioPost() {
   });
 
   useEffect(() => {
+    if (!isEditMode || !targetProject || isFormInitialized) return;
+
+    let isCancelled = false;
+
+    const initializeForm = async () => {
+      setTitle(targetProject.title ?? "");
+      setRole(targetProject.role ?? "");
+      setDuration(targetProject.duration ?? "");
+      setContribution(targetProject.contribution ?? "");
+      setSlogan(targetProject.slogan ?? "");
+      setIntroduction(targetProject.introduction ?? targetProject.overview ?? "");
+
+      const formattedSkills = targetProject.project_skills.map((ps) => {
+        const rawCategoryName = ps.skills.category_skills?.[0]?.categories?.categoryname ?? "";
+        const matchedCategory = CATEGORY_OPTIONS.find((category) => category === rawCategoryName);
+
+        return {
+          isNew: false,
+          name: ps.skills.name,
+          category: rawCategoryName || matchedCategory || "Uncategorized",
+          category_id: matchedCategory ? CATEGORY_MAP[matchedCategory] : undefined,
+          skill_id: ps.skill_id,
+          skill_reason: ps.skill_reason ?? "",
+        };
+      });
+
+      setSkills(formattedSkills);
+
+      try {
+        const markdown = targetProject.readme ?? "";
+        const blocks = await editor.tryParseMarkdownToBlocks(markdown);
+        if (!isCancelled) {
+          editor.replaceBlocks(editor.document, blocks);
+        }
+      } catch (error) {
+        console.error("README 초기화에 실패했습니다:", error);
+      } finally {
+        if (!isCancelled) {
+          setIsFormInitialized(true);
+        }
+      }
+    };
+
+    initializeForm();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [editor, isEditMode, targetProject, isFormInitialized]);
+
+  useEffect(() => {
     handleScroll();
-  }, [skills]);
+  }, [skills, handleScroll]);
 
   const handleAddSkill = () => {
     if (!newSkillName.trim()) return;
@@ -131,31 +199,60 @@ export default function PortfolioPost() {
   };
 
   const handleSubmit = async () => {
+    if (isSubmitting) return;
 
-    const projectData = {
-      title,
-      slug: title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, ''),
-      role,
-      duration,
-      contribution,
-      slogan,
-      overview: introduction,
-      introduction,
-      readme: await editor.blocksToMarkdownLossy(editor.document),
-      project_skills: skills.map(skill => ({
-        isNew: skill.isNew,
-        name: skill.name,
-        category_id: skill.category_id,
-        skill_reason: skill.skill_reason,
-        ...(skill.skill_id !== undefined && { skill_id: skill.skill_id }),
-      }))
-    };
+    setIsSubmitting(true);
 
-    createProject(projectData);
+    try {
+      const projectData = {
+        title,
+        slug: title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        role,
+        duration,
+        contribution,
+        slogan,
+        overview: introduction,
+        introduction,
+        readme: await editor.blocksToMarkdownLossy(editor.document),
+        project_skills: skills.map((skill) => ({
+          isNew: skill.isNew,
+          name: skill.name,
+          skill_reason: skill.skill_reason,
+          ...(skill.category_id !== undefined ? { category_id: skill.category_id } : {}),
+          ...(skill.skill_id !== undefined ? { skill_id: skill.skill_id } : {}),
+        })),
+      };
+
+      if (resolvedProjectId) {
+        await updateProject(resolvedProjectId, projectData);
+      } else {
+        await createProject(projectData);
+      }
+
+      navigate(-1);
+    } catch (error) {
+      console.error("프로젝트 저장에 실패했습니다:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCancelBtn = () => {
     navigate(-1);
+  }
+
+  if (isEditMode) {
+    if (isProjectsLoading && !targetProject) {
+      return <Loading />;
+    }
+
+    if (!isProjectsLoading && !targetProject) {
+      return <NotFound />;
+    }
+
+    if (!isFormInitialized) {
+      return <Loading />;
+    }
   }
 
   return (
@@ -193,7 +290,7 @@ export default function PortfolioPost() {
           <h2>사용 기술 스택 & 카테고리 (추가)</h2>
           <ul>
             {skills.map((skill, index) => (
-              <li key={skill.name}
+              <li key={`${skill.name}-${index}`}
                 className={activeIndex === index ? layoutStyles.activeSkill : undefined}
                 onClick={() => handleSkillClick(index)}
                 style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "0.4rem" }}
@@ -274,7 +371,7 @@ export default function PortfolioPost() {
               onScroll={handleScroll}
             >
               {skills.map((skill, index) => (
-                <div className={styles.techStacksCard} key={skill.name}>
+                <div className={styles.techStacksCard} key={`${skill.name}-${index}`}>
                   <div className={detailStyles.techStacksCardTitle}>
                     {skill.name} <span style={{ fontSize: "1.6rem", color: "var(--color-slate-400)" }}>{skill.category}</span>
                   </div>
@@ -312,8 +409,8 @@ export default function PortfolioPost() {
             작성 취소
           </button>
           <button type="button" onClick={handleSubmit}
-            className={styles.submitBtn}>
-            포트폴리오 게시
+            className={styles.submitBtn} disabled={isSubmitting}>
+            {isEditMode ? "포트폴리오 수정" : "포트폴리오 게시"}
           </button>
         </>
       }

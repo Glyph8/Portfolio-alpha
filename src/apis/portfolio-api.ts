@@ -59,3 +59,12 @@ export const getAllSkills = async (): Promise<SkillOption[]> => {
 
   return data;
 };
+
+export const updateProject = async (projectId: number, projectData: ProjectInsertPayload) => {
+  const { data, error } = await supabase.rpc('update_project_with_skills', {
+    payload: { ...projectData, project_id: projectId }
+  });
+
+  if (error) throw new Error(error.message);
+  return data;
+};

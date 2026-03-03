@@ -15,6 +15,7 @@ export const router = createBrowserRouter([
             { path: "portfolio", element: <Portfolio /> },
             { path: "projects/:id", element: <PortfolioDetail /> },
             { path: "projects/new", element: <PortfolioPost /> },
+            { path: "projects/edit/:id", element: <PortfolioPost /> },
             { path: "*", element: <NotFound/> }
         ]
     }

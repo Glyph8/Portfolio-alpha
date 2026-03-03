@@ -33,6 +33,11 @@ export default function PortfolioDetail() {
     navigate(-1);
   }
 
+  const handleEdit = () => {
+    if (!project) return;
+    navigate("/projects/new", { state: { projectId: project.project_id } });
+  }
+
   useEffect(() => {
     handleScroll();
   }, [project]);
@@ -122,7 +127,7 @@ export default function PortfolioDetail() {
           onClick={handleBack}>
             목록으로
           </button>
-          <button className={styles.editBtn}>
+          <button className={styles.editBtn} onClick={handleEdit}>
             수정하기
           </button>
           <button className={styles.deleteBtn}>
