@@ -68,3 +68,12 @@ export const updateProject = async (projectId: number, projectData: ProjectInser
   if (error) throw new Error(error.message);
   return data;
 };
+
+export const deleteProject = async (projectId: number) => {
+  const { error } = await supabase
+    .from('projects')
+    .delete()
+    .eq('project_id', projectId);
+
+  if (error) throw new Error(error.message);
+};

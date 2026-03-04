@@ -11,6 +11,9 @@ import { useEffect, useRef } from "react";
 import { useSkillReasonScroll } from "./hooks/use-skill-reason-scroll";
 import PortfolioLayout from "./layout/PortfolioLayout";
 import layoutStyles from "./layout/PortfolioLayout.module.css";
+import type { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
+import { deleteProject } from "../../apis/portfolio-api";
 
 export default function PortfolioDetail() {
 
@@ -18,6 +21,9 @@ export default function PortfolioDetail() {
   const navigate = useNavigate();
   const path = location.pathname;
   const id = path.split("/").pop();
+
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+
 
   const { projects, isLoading, isError } = useProjects();
 
@@ -35,7 +41,22 @@ export default function PortfolioDetail() {
 
   const handleEdit = () => {
     if (!project) return;
-    navigate("/projects/new", { state: { projectId: project.project_id } });
+    navigate(`/projects/new/${project.project_id}`);
+  }
+
+  const handleDelete = () => {
+    if (!project) return;
+    const confirmDelete = window.confirm("정말 이 프로젝트를 삭제하시겠습니까?");
+    if (confirmDelete) { 
+      deleteProject(project.project_id)
+        .then(() => {
+          alert("프로젝트가 삭제되었습니다.");
+          navigate(-1);
+        })
+        .catch((error) => {
+          alert("프로젝트 삭제 중 오류가 발생했습니다: " + error.message);
+        });
+    }
   }
 
   useEffect(() => {
@@ -124,15 +145,21 @@ export default function PortfolioDetail() {
       actionSlot={
         <>
           <button className={styles.backBtn}
-          onClick={handleBack}>
+            onClick={handleBack}>
             목록으로
           </button>
-          <button className={styles.editBtn} onClick={handleEdit}>
-            수정하기
-          </button>
-          <button className={styles.deleteBtn}>
-            삭제하기
-          </button>
+          {
+            isLoggedIn && (
+              <>
+                <button className={styles.editBtn} onClick={handleEdit}>
+                  수정하기
+                </button>
+                <button className={styles.deleteBtn} onClick={handleDelete}>
+                  삭제하기
+                </button>
+              </>
+            )
+          }
         </>
       }
     />
