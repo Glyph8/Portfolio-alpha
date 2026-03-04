@@ -1,6 +1,21 @@
 import { supabase } from "../libs/supabaseClient";
 import type { ProjectInsertPayload, RawProject } from "../types/projec-type";
 
+const mapProjectPayloadToColumns = (projectData: ProjectInsertPayload) => ({
+  title: projectData.title,
+  slug: projectData.slug,
+  role: projectData.role,
+  duration: projectData.duration,
+  contribution: projectData.contribution,
+  slogan: projectData.slogan,
+  overview: projectData.overview,
+  introduction: projectData.introduction,
+  img_url: projectData.img_url,
+  github_url: projectData.github_url,
+  project_url: projectData.project_url,
+  readme: projectData.readme,
+});
+
 export const fetchAndTransformProjects = async (): Promise<RawProject[]> => {
   const { data, error } = await supabase
     .from('projects')
@@ -91,11 +106,26 @@ export const getAllSkills = async (): Promise<SkillOption[]> => {
 };
 
 export const updateProject = async (projectId: number, projectData: ProjectInsertPayload) => {
-  const { data, error } = await supabase.rpc('update_project_with_skills', {
-    payload: { ...projectData, project_id: projectId }
+  const { error: projectUpdateError } = await supabase
+    .from('projects')
+    .update(mapProjectPayloadToColumns(projectData))
+    .eq('project_id', projectId);
+
+  if (projectUpdateError) {
+    throw new Error(projectUpdateError.message);
+  }
+
+  const { data, error: skillUpdateError } = await supabase.rpc('update_project_with_skills', {
+    payload: {
+      ...projectData,
+      project_id: projectId,
+    }
   });
 
-  if (error) throw new Error(error.message);
+  if (skillUpdateError) {
+    throw new Error(skillUpdateError.message);
+  }
+
   return data;
 };
 
