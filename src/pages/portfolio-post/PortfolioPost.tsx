@@ -77,7 +77,7 @@ export default function PortfolioPost() {
       const fileName = `${uuidv4()}.${fileExt}`;
       const filePath = `blog-images/${fileName}`; // 버킷 내부 폴더 경로
 
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('blog-images')
         .upload(filePath, file);
 
