@@ -7,6 +7,7 @@ export const fetchAndTransformProjects = async (): Promise<RawProject[]> => {
     .select(`
       *,
       project_skills (
+        skill_id,
         skill_reason,
         skills (
           skill_id,
@@ -27,6 +28,35 @@ export const fetchAndTransformProjects = async (): Promise<RawProject[]> => {
   const rawProjects = data as RawProject[];
 
   return rawProjects;
+};
+
+export const fetchProjectById = async (projectId: number): Promise<RawProject | null> => {
+  const { data, error } = await supabase
+    .from('projects')
+    .select(`
+      *,
+      project_skills (
+        skill_id,
+        skill_reason,
+        skills (
+          skill_id,
+          name,
+          category_skills (
+            categories (
+              categoryname
+            )
+          )
+        )
+      )
+    `)
+    .eq('project_id', projectId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data as RawProject | null;
 };
 
 export const createProject = async (projectData: ProjectInsertPayload) => {

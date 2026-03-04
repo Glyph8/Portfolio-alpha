@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import PortfolioLayout from "../portfolio-detail/layout/PortfolioLayout";
 import styles from "./PortfolioPost.module.css";
 import detailStyles from "../portfolio-detail/PortfolioDetail.module.css";
@@ -12,7 +13,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { createProject, updateProject } from "../../apis/portfolio-api";
 import { useSkillOptions } from "./hooks/use-skill-option";
 import { CATEGORY_MAP, CATEGORY_OPTIONS } from "./constants";
-import { useProjects } from "../portfolio/projects/hooks/use-projects";
+import { useProject } from "../portfolio/projects/hooks/use-projects";
 import Loading from "../../components/loading/Loading";
 import NotFound from "../../components/error/NotFound";
 
@@ -28,6 +29,7 @@ interface Skill {
 
 export default function PortfolioPost() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { id } = useParams();
   const location = useLocation();
   const projectId = id ? Number(id) : undefined;
@@ -36,10 +38,7 @@ export default function PortfolioPost() {
   const resolvedProjectId = typeof derivedProjectId === "number" ? derivedProjectId : undefined;
   const isEditMode = resolvedProjectId !== undefined;
 
-  const { projects, isLoading: isProjectsLoading } = useProjects();
-  const targetProject = isEditMode
-    ? projects?.find((p) => p.project_id === resolvedProjectId)
-    : undefined;
+  const { data: targetProject, isLoading: isProjectLoading, isError: isProjectError } = useProject(resolvedProjectId);
 
   const [title, setTitle] = useState("");
   const [role, setRole] = useState("");
@@ -98,7 +97,7 @@ export default function PortfolioPost() {
       setSlogan(targetProject.slogan ?? "");
       setIntroduction(targetProject.introduction ?? targetProject.overview ?? "");
 
-      const formattedSkills = targetProject.project_skills.map((ps) => {
+      const formattedSkills = (targetProject.project_skills ?? []).map((ps) => {
         const rawCategoryName = ps.skills.category_skills?.[0]?.categories?.categoryname ?? "";
         const matchedCategory = CATEGORY_OPTIONS.find((category) => category === rawCategoryName);
 
@@ -225,8 +224,13 @@ export default function PortfolioPost() {
 
       if (resolvedProjectId) {
         await updateProject(resolvedProjectId, projectData);
+        await Promise.all([
+          queryClient.invalidateQueries({ queryKey: ['projects'] }),
+          queryClient.invalidateQueries({ queryKey: ['project', resolvedProjectId] })
+        ]);
       } else {
         await createProject(projectData);
+        await queryClient.invalidateQueries({ queryKey: ['projects'] });
       }
 
       navigate(-1);
@@ -242,11 +246,11 @@ export default function PortfolioPost() {
   }
 
   if (isEditMode) {
-    if (isProjectsLoading && !targetProject) {
+    if (isProjectLoading) {
       return <Loading />;
     }
 
-    if (!isProjectsLoading && !targetProject) {
+    if (isProjectError || !targetProject) {
       return <NotFound />;
     }
 

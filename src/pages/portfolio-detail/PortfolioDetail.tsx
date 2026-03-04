@@ -41,7 +41,7 @@ export default function PortfolioDetail() {
 
   const handleEdit = () => {
     if (!project) return;
-    navigate(`/projects/new/${project.project_id}`);
+    navigate(`/projects/edit/${project.project_id}`);
   }
 
   const handleDelete = () => {

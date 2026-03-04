@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAndTransformProjects } from "../../../../apis/portfolio-api";
+import { fetchAndTransformProjects, fetchProjectById } from "../../../../apis/portfolio-api";
 import type { Category } from "../../../../types/projec-type";
 import { useMemo } from "react";
 
@@ -53,5 +53,15 @@ export const useProjects = () => {
 
 
     return { projects, projectsOverview, isLoading, isError, error }
+}
+
+export const useProject = (projectId?: number) => {
+    const queryResult = useQuery({
+        queryKey: ['project', projectId],
+        queryFn: () => fetchProjectById(projectId as number),
+        enabled: typeof projectId === "number",
+    });
+
+    return queryResult;
 }
 
