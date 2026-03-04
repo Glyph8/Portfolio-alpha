@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  padding: 4rem 2rem;
+  padding: 4rem 2.4rem;
   background: linear-gradient(135deg, var(--bg-main), var(--bg-surface));
   color: var(--text-primary);
   display: flex;
