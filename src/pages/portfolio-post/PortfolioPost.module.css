@@ -99,6 +99,80 @@
   font-size: 1.4rem;
 }
 
+.formGroupStack {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.formGroupStack label {
+  min-width: auto;
+  font-size: 1.3rem;
+}
+
+.inputHelper {
+  font-size: 1.2rem;
+  color: var(--color-slate-500, #64748b);
+  margin-top: 0.4rem;
+}
+
+.mediaFields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 1.2rem;
+}
+
+.sectionToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  border: 0.1rem solid var(--border-base);
+  border-radius: 0.8rem;
+  background-color: var(--bg-section-alt);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sectionToggle:hover,
+.sectionToggle:focus-visible {
+  background-color: var(--border-light);
+  border-color: var(--action-primary);
+}
+
+.sectionToggleIcon {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 999rem;
+  background-color: var(--bg-main);
+  border: 0.1rem solid var(--border-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.fieldSectionLabel {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0.4rem 0 1.2rem;
+}
+
+.formDivider {
+  width: 100%;
+  height: 0.1rem;
+  background-color: var(--border-light);
+  margin: 1.6rem 0 1.2rem;
+}
+
 .infoFormContainer,
 .skillsFormContainer {
   display: flex;

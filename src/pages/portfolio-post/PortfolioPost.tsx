@@ -16,6 +16,7 @@ import { CATEGORY_MAP, CATEGORY_OPTIONS } from "./constants";
 import { useProject } from "../portfolio/projects/hooks/use-projects";
 import Loading from "../../components/loading/Loading";
 import NotFound from "../../components/error/NotFound";
+import type { ProjectInsertPayload } from "../../types/projec-type";
 
 interface Skill {
   isNew: boolean;
@@ -46,6 +47,10 @@ export default function PortfolioPost() {
   const [contribution, setContribution] = useState("");
   const [slogan, setSlogan] = useState("");
   const [introduction, setIntroduction] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [githubUrl, setGithubUrl] = useState("");
+  const [projectUrl, setProjectUrl] = useState("");
+  const [isMediaSectionOpen, setIsMediaSectionOpen] = useState(false);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [isFormInitialized, setIsFormInitialized] = useState(!isEditMode);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,6 +62,7 @@ export default function PortfolioPost() {
   const { skillOptions } = useSkillOptions();
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const mediaAutoExpandedRef = useRef(false);
 
   const {
     maskState, activeIndex, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
@@ -96,6 +102,9 @@ export default function PortfolioPost() {
       setContribution(targetProject.contribution ?? "");
       setSlogan(targetProject.slogan ?? "");
       setIntroduction(targetProject.introduction ?? targetProject.overview ?? "");
+      setImageUrl(targetProject.img_url ?? "");
+      setGithubUrl(targetProject.github_url ?? "");
+      setProjectUrl(targetProject.project_url ?? "");
 
       const formattedSkills = (targetProject.project_skills ?? []).map((ps) => {
         const rawCategoryName = ps.skills.category_skills?.[0]?.categories?.categoryname ?? "";
@@ -138,6 +147,24 @@ export default function PortfolioPost() {
   useEffect(() => {
     handleScroll();
   }, [skills, handleScroll]);
+
+  useEffect(() => {
+    const hasMediaLinks = Boolean(imageUrl || githubUrl || projectUrl);
+    if (hasMediaLinks && !mediaAutoExpandedRef.current) {
+      setIsMediaSectionOpen(true);
+      mediaAutoExpandedRef.current = true;
+    }
+  }, [imageUrl, githubUrl, projectUrl]);
+
+  const toggleMediaSection = () => {
+    setIsMediaSectionOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        mediaAutoExpandedRef.current = true;
+      }
+      return next;
+    });
+  };
 
   const handleAddSkill = () => {
     if (!newSkillName.trim()) return;
@@ -203,15 +230,23 @@ export default function PortfolioPost() {
     setIsSubmitting(true);
 
     try {
-      const projectData = {
+      const sanitizedImageUrl = imageUrl.trim() || null;
+      const sanitizedGithubUrl = githubUrl.trim() || null;
+      const sanitizedProjectUrl = projectUrl.trim() || null;
+      const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+      const projectData: ProjectInsertPayload = {
         title,
-        slug: title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        slug,
         role,
         duration,
         contribution,
         slogan,
         overview: introduction,
         introduction,
+        img_url: sanitizedImageUrl,
+        github_url: sanitizedGithubUrl,
+        project_url: sanitizedProjectUrl,
         readme: await editor.blocksToMarkdownLossy(editor.document),
         project_skills: skills.map((skill) => ({
           isNew: skill.isNew,
@@ -286,6 +321,60 @@ export default function PortfolioPost() {
             <label>기여도:</label>
             <input type="text" className={styles.inputElement} placeholder="ex) 100%" value={contribution} onChange={(e) => setContribution(e.target.value)} />
           </div>
+          <div className={styles.formDivider} aria-hidden="true" />
+          <button
+            type="button"
+            className={styles.sectionToggle}
+            onClick={toggleMediaSection}
+            aria-expanded={isMediaSectionOpen}
+            aria-controls="media-link-fields"
+          >
+            <span>미디어 & 링크</span>
+            <span className={styles.sectionToggleIcon} aria-hidden="true">
+              {isMediaSectionOpen ? "−" : "+"}
+            </span>
+          </button>
+
+          {isMediaSectionOpen && (
+            <div id="media-link-fields" className={styles.mediaFields}>
+              <div className={`${styles.formGroup} ${styles.formGroupStack}`}>
+                <label htmlFor="project-image-url">대표 이미지 URL</label>
+                <input
+                  id="project-image-url"
+                  type="url"
+                  className={styles.inputElement}
+                  placeholder="https://example.com/preview.png"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                />
+                <span className={styles.inputHelper}>포트폴리오 카드에 사용될 대표 이미지를 등록하세요.</span>
+              </div>
+              <div className={`${styles.formGroup} ${styles.formGroupStack}`}>
+                <label htmlFor="project-github-url">GitHub URL</label>
+                <input
+                  id="project-github-url"
+                  type="url"
+                  className={styles.inputElement}
+                  placeholder="https://github.com/username/repo"
+                  value={githubUrl}
+                  onChange={(e) => setGithubUrl(e.target.value)}
+                />
+                <span className={styles.inputHelper}>소스 코드 저장소 링크를 입력하면 방문자가 바로 확인할 수 있어요.</span>
+              </div>
+              <div className={`${styles.formGroup} ${styles.formGroupStack}`}>
+                <label htmlFor="project-live-url">프로젝트 URL</label>
+                <input
+                  id="project-live-url"
+                  type="url"
+                  className={styles.inputElement}
+                  placeholder="https://project-demo.com"
+                  value={projectUrl}
+                  onChange={(e) => setProjectUrl(e.target.value)}
+                />
+                <span className={styles.inputHelper}>배포 링크나 시연 영상을 연결해 프로젝트를 바로 경험하게 해보세요.</span>
+              </div>
+            </div>
+          )}
         </div>
       }
 

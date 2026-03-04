@@ -44,6 +44,7 @@ export interface ProjectCardProps {
 }
 
 export interface ProjectInsertPayload {
+  slug: string;
   title: string;
   slogan: string;
   introduction: string;
@@ -51,10 +52,10 @@ export interface ProjectInsertPayload {
   duration: string;
   contribution: string;
   overview: string;
-  img_url?: string;
+  img_url: string | null;
   readme: string;
-  github_url?: string;
-  project_url?: string;
+  github_url: string | null;
+  project_url: string | null;
   project_skills: {
     isNew: boolean;
     skill_id?: number;
