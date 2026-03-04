@@ -12,11 +12,11 @@ export default function About() {
   return (
     <div className={styles.container}>
       <div className={styles.intro}>
-        <h2 className={styles.title}> 프론트엔드 개발자. 강동윤입니다.</h2>
-        <p className={styles.description}> 룰루랄라 룰루랄라 </p>
+        <h2 className={styles.title}> 보안을 중시하는 프론트엔드 개발자. 강동윤입니다.</h2>
+        <p className={styles.description}> 수많은 서비스와 기능들에도 사용자의 보안을 지키면서도, 쾌적한 UX를 만들고자 합니다. </p>
       </div>
       <div className={styles.myInfo}>
-        <img src="https://placehold.co/300x300" alt="Portrait" className={styles.portrait} />
+        <img src="https://dfqhlgqbzkbkeahqdmog.supabase.co/storage/v1/object/public/blog-images/my_img.jpg" alt="Portrait" className={styles.portrait} />
 
 
         <div className={styles.about}>
