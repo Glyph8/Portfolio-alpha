@@ -17,6 +17,8 @@ import { useProject } from "../portfolio/projects/hooks/use-projects";
 import Loading from "../../components/loading/Loading";
 import NotFound from "../../components/error/NotFound";
 import type { ProjectInsertPayload } from "../../types/projec-type";
+import { supabase } from "../../libs/supabaseClient";
+import { v4 as uuidv4 } from "uuid";
 
 interface Skill {
   isNew: boolean;
@@ -68,7 +70,38 @@ export default function PortfolioPost() {
     maskState, activeIndex, onDragStart, onDragEnd, onDragMove, handleScroll, handleSkillClick
   } = useSkillReasonScroll(scrollRef);
 
+    const uploadToSupabase = async (file: File) => {
+    try {
+      // 파일명 중복을 막기 위해 고유한 파일명 생성 (예: uuid.png)
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${uuidv4()}.${fileExt}`;
+      const filePath = `blog-images/${fileName}`; // 버킷 내부 폴더 경로
+
+      const { data, error } = await supabase.storage
+        .from('blog-images')
+        .upload(filePath, file);
+
+      if (error) {
+        throw error;
+      }
+
+      // 업로드 성공 후 Public URL 가져오기
+      const { data: publicUrlData } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filePath);
+
+      // BlockNote에게 URL을 리턴해주면 끝!
+      return publicUrlData.publicUrl;
+
+    } catch (error) {
+      console.error("Supabase 이미지 업로드 실패:", error);
+      // 실패 시 보여줄 기본 이미지나 에러 처리
+      return "https://via.placeholder.com/150?text=Upload+Failed";
+    }
+  };
+
   const editor = useCreateBlockNote({
+    uploadFile: uploadToSupabase ,
     initialContent: [
       {
         type: "heading",
